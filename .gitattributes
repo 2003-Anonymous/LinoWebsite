@@ -1,0 +1,16 @@
+# Einheitliche Zeilenenden (LF) für alle Textdateien.
+#
+# Ohne diese Regel wandelt Git unter Windows beim Auschecken in CRLF um.
+# Das Admin-Panel schreibt data/*.js aber mit LF – Git würde sonst ganze
+# Dateien als geändert melden, obwohl sich inhaltlich nichts geändert hat.
+* text=auto eol=lf
+
+# Binärdateien nicht anfassen
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary

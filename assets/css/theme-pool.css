@@ -1,0 +1,404 @@
+/* =========================================================
+   DESIGN "BECKEN" (pool)
+   Wettkampfbecken statt offenem Meer: helles Wasser, Kacheln,
+   Bahnenleinen. Der Hero ist interaktiv (assets/js/hero-pool.js) –
+   die Leinen reagieren auf Maus und Klick.
+   ========================================================= */
+
+:root {
+  --color-bg: #ffffff;
+  --color-bg-alt: #eaf3f9;
+  --color-surface: #ffffff;
+  --color-text: #21384a;
+  --color-muted: #5d7a8f;
+  --color-accent: #0e79b4;
+  --color-accent-dark: #0a2c42;
+  --color-border: #d8e6ef;
+  --color-on-dark: #0a2c42;
+
+  --rope-main: #1a6ea8;
+  --rope-accent: #d8443c;
+
+  --kachel: rgba(14, 121, 180, 0.10);
+  --section-padding: 104px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Kachelwand wie im Schwimmbad – nur angedeutet */
+.section-alt {
+  background-color: var(--color-bg-alt);
+  background-image:
+    linear-gradient(var(--kachel) 1px, transparent 1px),
+    linear-gradient(90deg, var(--kachel) 1px, transparent 1px);
+  background-size: 46px 46px, 46px 46px;
+}
+
+/* ---------- Hero: Beckenwasser ---------- */
+
+.hero {
+  background: #bfe2f3;
+}
+
+.hero-bg {
+  background:
+    linear-gradient(180deg, #d8eef8 0%, #86c6e4 45%, #2e93c4 100%);
+}
+
+/* Lichtnetz auf dem Beckenboden.
+   Die Bänder sind bewusst aus weichen Verläufen gebaut statt aus harten
+   Streifen mit filter: blur() – ein bildschirmfüllender Blur kostet auf
+   schwächeren Geräten sehr viel Rechenzeit. */
+.hero-overlay {
+  background-image:
+    repeating-linear-gradient(74deg,
+      rgba(255, 255, 255, 0) 0px,
+      rgba(255, 255, 255, 0.16) 26px,
+      rgba(255, 255, 255, 0) 62px,
+      rgba(255, 255, 255, 0) 150px),
+    repeating-linear-gradient(-54deg,
+      rgba(255, 255, 255, 0) 0px,
+      rgba(255, 255, 255, 0.11) 34px,
+      rgba(255, 255, 255, 0) 78px,
+      rgba(255, 255, 255, 0) 205px),
+    /* heller Lichtkegel in der Mitte, damit das dunkle Logo gut liegt */
+    radial-gradient(44% 46% at 50% 47%, rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0) 72%);
+  opacity: 0.75;
+  animation: kaustik 17s ease-in-out infinite alternate;
+}
+
+@keyframes kaustik {
+  from { transform: translate3d(-1.5%, -1%, 0) scale(1.04); }
+  to   { transform: translate3d(2%, 1.5%, 0) scale(1.1); }
+}
+
+/* Beckenrand unten statt Meereswelle */
+.hero-wave {
+  height: clamp(46px, 6vw, 84px);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 62%);
+}
+
+.hero-logo--light { display: none; }
+.hero-logo--dark { display: block; }
+
+.hero-logo {
+  filter: drop-shadow(0 18px 34px rgba(8, 60, 90, 0.28));
+  animation: hero-logo-in 1.3s var(--ease-out) both, hero-schaukeln 8s ease-in-out 1.3s infinite;
+}
+
+@keyframes hero-logo-in {
+  from { opacity: 0; transform: translateY(34px) scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes hero-schaukeln {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(-1.2deg); }
+}
+
+.hero-tagline,
+.hero-scroll,
+.hero-hint {
+  color: var(--color-accent-dark);
+}
+
+.hero-tagline { opacity: 0.9; }
+.hero-hint { opacity: 0.75; }
+
+.hero-scroll-arrow { animation: scroll-bob 2.2s ease-in-out infinite; }
+
+@keyframes scroll-bob {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); }
+  50%      { transform: rotate(45deg) translate(4px, 4px); }
+}
+
+/* ---------- Kopfzeile ---------- */
+
+.site-header { background: transparent; }
+
+.site-header .logo-img--dark { display: block; }
+.site-header .logo-img--light { display: none; }
+
+.site-header .main-nav a,
+.site-header .nav-toggle { color: var(--color-accent-dark); }
+
+.site-header.scrolled {
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 6px 24px rgba(10, 60, 90, 0.07);
+}
+
+.site-header.scrolled .logo-img { height: 46px; }
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--color-accent);
+  transition: right 0.3s var(--ease-out);
+}
+
+.main-nav a:hover::after { right: 0; }
+
+@media (max-width: 900px) {
+  .main-nav ul {
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(10, 60, 90, 0.14);
+  }
+  .main-nav ul li + li { border-top: 1px solid var(--color-border); }
+}
+
+/* ---------- Überblick ---------- */
+
+.zitat p { color: var(--color-accent-dark); }
+
+.card {
+  box-shadow: 0 14px 34px rgba(12, 70, 105, 0.08);
+  border-color: var(--color-border);
+}
+
+.wk-datum { color: var(--color-accent); }
+
+.overview-images img {
+  box-shadow: 0 14px 30px rgba(12, 70, 105, 0.14);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.overview-images img:hover { transform: translateY(-5px); }
+
+.split-media img { box-shadow: 0 22px 48px rgba(12, 70, 105, 0.16); }
+
+/* ---------- Resultate: dunkle Anzeigetafel im hellen Bad ---------- */
+
+.table-wrap {
+  background: #0a2c42;
+  border-radius: var(--radius-lg);
+  padding: 6px 8px;
+  box-shadow: 0 20px 44px rgba(10, 44, 66, 0.28);
+}
+
+.resultate-tabelle th {
+  color: #7fb6d6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.resultate-tabelle td {
+  color: #dceaf3;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.resultate-tabelle tbody tr:last-child td { border-bottom: none; }
+.resultate-tabelle tbody tr { transition: background 0.25s var(--ease-out); }
+.resultate-tabelle tbody tr:hover { background: rgba(255, 255, 255, 0.05); }
+
+.resultate-tabelle td:first-child { color: #ffffff; }
+
+.zeit { color: #ffffff; }
+.zeit--neben { color: #cfe4f0; }
+
+.badge--pb {
+  background: #ffcf4a;
+  color: #3d2c00;
+}
+
+.badge--sb {
+  background: rgba(255, 255, 255, 0.12);
+  color: #a9cde2;
+}
+
+.res-sub { color: #85aec7; }
+
+.erfolge-liste li {
+  background: #ffffff;
+  border-color: var(--color-border);
+  box-shadow: 0 10px 26px rgba(12, 70, 105, 0.07);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+
+.erfolge-liste li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 38px rgba(12, 70, 105, 0.13);
+}
+
+/* ---------- Sponsoren ---------- */
+
+.sponsor-item {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(12, 70, 105, 0.07);
+}
+
+/* Bahnenleine als Akzent über jeder Karte */
+.sponsor-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  height: 6px;
+  background-image:
+    radial-gradient(circle at 5px 3px, var(--rope-accent) 2.6px, transparent 3px),
+    radial-gradient(circle at 5px 3px, var(--rope-main) 2.6px, transparent 3px);
+  background-size: 70px 6px, 10px 6px;
+}
+
+.sponsor-item:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-accent);
+  box-shadow: 0 22px 46px rgba(12, 70, 105, 0.16);
+}
+
+.sponsor-logo {
+  background: #f7fbfd;
+  border-radius: var(--radius);
+}
+
+.sponsor-cta {
+  background: linear-gradient(140deg, #0e79b4, #0a2c42);
+  color: #ffffff;
+  box-shadow: 0 24px 50px rgba(10, 44, 66, 0.28);
+}
+
+.sponsor-cta h3 { color: #ffffff; }
+.sponsor-cta p { color: rgba(255, 255, 255, 0.86); }
+
+.btn {
+  background: #ffffff;
+  color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(4, 30, 50, 0.22);
+}
+
+/* ---------- Galerie ---------- */
+
+.galerie-grid figure {
+  box-shadow: 0 14px 32px rgba(12, 70, 105, 0.12);
+}
+
+.galerie-grid figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14, 121, 180, 0.35), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+.galerie-grid figure:hover::after { opacity: 1; }
+.galerie-grid figure:hover img { transform: scale(1.05); }
+
+.galerie-link a { color: var(--color-accent); }
+
+/* ---------- Kontakt als Startblock ---------- */
+
+.section-kontakt {
+  background: var(--color-accent-dark);
+  color: #e6f1f8;
+  /* abgeschrägte Oberkante wie die Kante eines Startblocks */
+  clip-path: polygon(0 46px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -20px;
+  padding-top: calc(var(--section-padding) + 30px);
+}
+
+.section-kontakt .section-kicker { color: #7fc5e8; }
+.section-kontakt .section-kicker::before { color: #7fc5e8; }
+.section-kontakt h2 { color: #ffffff; }
+.section-kontakt .kontakt-liste dt { color: #8fb8cf; }
+.section-kontakt .kontakt-liste dd,
+.section-kontakt .kontakt-liste dd a { color: #ffffff; }
+.section-kontakt .kontakt-liste dd a:hover { color: #7fc5e8; }
+.section-kontakt::before { display: none; }
+
+/* ---------- Fusszeile ---------- */
+
+.site-footer {
+  background: #061f30;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Leiste am Rand ---------- */
+
+.depth-rail {
+  color: var(--color-accent-dark);
+  --rail-chip-bg: rgba(10, 44, 66, 0.94);
+  --rail-chip-text: #ffffff;
+}
+
+/* ---------- Luftblasen: im hellen Becken dezenter ---------- */
+
+.bubble-layer { opacity: 0.55; }
+
+.bubble {
+  mix-blend-mode: normal;
+  opacity: 0.4;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25) 45%, rgba(255, 255, 255, 0) 62%);
+  border: 1px solid rgba(14, 121, 180, 0.18);
+}
+
+@keyframes bubble-rise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0; }
+  12%  { opacity: 0.55; }
+  50%  { transform: translate3d(20px, -52vh, 0) scale(1); }
+  90%  { opacity: 0.35; }
+  100% { transform: translate3d(-12px, -104vh, 0) scale(1.06); opacity: 0; }
+}
+
+/* ---------- Lightbox ---------- */
+
+.lightbox {
+  background: rgba(10, 44, 66, 0.86);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox.open { opacity: 1; pointer-events: auto; }
+
+.lightbox img {
+  max-width: min(92vw, 1000px);
+  max-height: 86vh;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 80px rgba(0, 20, 35, 0.55);
+  transform: scale(0.95);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.lightbox.open img { transform: scale(1); }
+
+.lightbox-close {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo,
+  .hero-overlay,
+  .hero-scroll-arrow,
+  .bubble { animation: none !important; }
+}

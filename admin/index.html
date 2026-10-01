@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Lino Website</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin">
+  <script src="../assets/js/admin-auth.js"></script>
+
+  <header class="admin-header">
+    <div class="container admin-header-inner">
+      <h1>Admin – Inhalte bearbeiten</h1>
+      <div class="admin-actions">
+        <a class="btn-secondary" href="../index.html" target="_blank">Seite ansehen ↗</a>
+        <button id="btn-connect" class="btn-secondary" type="button">Projektordner verbinden</button>
+        <button id="btn-save-all" class="btn-primary" type="button">Alles speichern</button>
+      </div>
+    </div>
+    <div class="container">
+      <p id="admin-status" class="admin-status info">
+        Bereit. Für direktes Speichern zuerst "Projektordner verbinden" klicken und den Hauptordner der
+        Website auswählen (funktioniert in Chrome/Edge). Ohne Verbindung werden Dateien zum manuellen
+        Ersetzen heruntergeladen.
+      </p>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container">
+
+      <!-- HOME / ÜBER MICH / RETTUNGSSCHWIMMSPORT / KONTAKT -> data/content.js -->
+      <section class="admin-card">
+        <h2>Home</h2>
+        <p class="admin-help">Name, Zitat, Hero-Bilder und nächste Wettkämpfe für die Startseite.</p>
+        <div id="admin-home"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Über mich</h2>
+        <div id="admin-ueber-mich"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Rettungsschwimmsport</h2>
+        <p class="admin-help">Kurze Erklärung des Sports.</p>
+        <div id="admin-rettungsschwimmsport"></div>
+      </section>
+
+      <section class="admin-card">
+        <h2>Kontakt</h2>
+        <div id="admin-kontakt"></div>
+        <button id="btn-save-content" class="btn-primary" type="button">Speichern (Home, Über mich, Rettungsschwimmsport, Kontakt)</button>
+      </section>
+
+      <!-- RESULTATE -> data/resultate.js -->
+      <section class="admin-card">
+        <h2>Resultate</h2>
+
+        <div class="admin-subsection">
+          <h3>Pool</h3>
+          <p class="admin-help">Titel und Einleitungstext des Pool-Bereichs.</p>
+          <div id="admin-pool-meta"></div>
+          <p class="admin-help">All-Time PB, Saison-PB und letztes Resultat pro Disziplin.</p>
+          <div id="admin-pool"></div>
+        </div>
+
+        <div class="admin-subsection">
+          <h3>Beach / Ocean</h3>
+          <p class="admin-help">Nur bestes und letztes Resultat (keine Bestzeiten-Tabelle).</p>
+          <div id="admin-beach-meta"></div>
+          <div id="admin-beach"></div>
+        </div>
+
+        <div class="admin-subsection">
+          <h3>Erfolge</h3>
+          <p class="admin-help">Freie Auflistung, z.B. Top-10-Finish, B-Final etc. Steht auf der Website nach Pool und Beach/Ocean.</p>
+          <div id="admin-erfolge"></div>
+        </div>
+
+        <button id="btn-save-resultate" class="btn-primary" type="button">Speichern (Resultate)</button>
+      </section>
+
+      <!-- SPONSOREN -> data/sponsoren.js -->
+      <section class="admin-card">
+        <h2>Sponsoren</h2>
+
+        <div class="admin-subsection">
+          <h3>Kategorien</h3>
+          <p class="admin-help">
+            Die Reihenfolge hier ist auch die Reihenfolge auf der Website. Kategorien können
+            umbenannt, ergänzt oder gelöscht werden – pro Kategorie ein Einleitungstext und
+            beliebig viele Sponsoren.
+          </p>
+          <div id="admin-sponsor-kategorien"></div>
+        </div>
+
+        <div class="admin-subsection">
+          <h3>Abschluss-Text ("Habe ich dein Interesse geweckt?")</h3>
+          <p class="admin-help">Steht ganz unten im Sponsoren-Bereich, mit Button zum Kontakt.</p>
+          <div id="admin-sponsor-cta"></div>
+        </div>
+
+        <button id="btn-save-sponsoren" class="btn-primary" type="button">Speichern (Sponsoren)</button>
+      </section>
+
+      <!-- GALERIE -> data/galerie.js -->
+      <section class="admin-card">
+        <h2>Galerie</h2>
+        <div id="admin-galerie"></div>
+        <h3>Bilder</h3>
+        <div id="admin-galerie-bilder"></div>
+        <button id="btn-save-galerie" class="btn-primary" type="button">Speichern (Galerie)</button>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../data/content.js"></script>
+  <script src="../data/resultate.js"></script>
+  <script src="../data/sponsoren.js"></script>
+  <script src="../data/galerie.js"></script>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lino Gautschi – Rettungsschwimmsport</title>
+  <meta name="description" content="Lino Gautschi – Rettungsschwimmsport: Resultate aus Pool und Beach/Ocean, Sponsoren, Galerie und Kontakt.">
+
+  <link rel="icon" href="assets/images/logo/logo-mark-dark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" id="theme-css" href="assets/css/theme-ocean.css">
+
+  <script>
+    // Das Design der Website ist "ocean" (Meer) – fest eingestellt.
+    //
+    // Das zweite Design ("pool", helles Becken) liegt weiterhin im Projekt
+    // und lässt sich mit ?design=pool in der Adresszeile anschauen. Auf der
+    // Seite selbst gibt es dafür bewusst keinen Umschalter mehr.
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var design = params.get("design") === "pool" ? "pool" : "ocean";
+
+      // Alte gespeicherte Design-Wahl entfernen – sonst würde bei jemandem,
+      // der früher "Becken" gewählt hat, weiterhin das falsche Design laden.
+      try { localStorage.removeItem("lino-design"); } catch (e) {}
+
+      document.documentElement.dataset.design = design;
+      document.getElementById("theme-css").href = "assets/css/theme-" + design + ".css";
+
+      // Startzustand für die Einblend-Animationen. theme.js entfernt das
+      // Attribut wieder, falls die Skripte nicht laden – dann ist einfach
+      // alles sofort sichtbar statt dauerhaft unsichtbar.
+      document.documentElement.setAttribute("data-reveal-ready", "");
+    })();
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#ueber-mich">Zum Inhalt springen</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="logo" aria-label="Lino Gautschi – Startseite">
+        <img class="logo-img logo-img--dark" src="assets/images/logo/logo-mark-dark.svg" alt="Lino Gautschi">
+        <img class="logo-img logo-img--light" src="assets/images/logo/logo-mark-light.svg" alt="" aria-hidden="true">
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Hauptnavigation">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-list">
+          <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#ueber-mich">Über mich</a></li>
+          <li><a href="#rettungsschwimmsport">Rettungsschwimmsport</a></li>
+          <li><a href="#resultate">Resultate</a></li>
+          <li><a href="#sponsoren">Sponsoren</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HOME / HERO -->
+    <section id="home" class="hero" data-rail-label="Start">
+      <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <h1 class="sr-only" id="hero-name-sr"></h1>
+        <img class="hero-logo hero-logo--light" src="assets/images/logo/logo-full-light.svg" alt="Lino Gautschi">
+        <img class="hero-logo hero-logo--dark" src="assets/images/logo/logo-full-dark.svg" alt="" aria-hidden="true">
+        <p class="hero-tagline" id="hero-tagline"></p>
+        <p class="hero-hint" aria-hidden="true">
+          <span data-hint="ocean">Bewege die Maus über das Wasser</span>
+          <span data-hint="pool">Fahr mit der Maus durch die Bahnenleinen – oder klick hinein</span>
+        </p>
+        <a class="hero-scroll" href="#ueberblick" aria-label="Weiter nach unten">
+          <span class="hero-scroll-text">Mehr</span>
+          <span class="hero-scroll-arrow" aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="hero-wave" aria-hidden="true"></div>
+    </section>
+
+    <!-- ÜBERBLICK: Zitat, nächste Wettkämpfe, Bilder -->
+    <section id="ueberblick" class="section section-overview" data-rail-label="Überblick">
+      <div class="container">
+        <blockquote class="zitat reveal" id="hero-zitat">
+          <p id="zitat-text"></p>
+          <cite id="zitat-autor"></cite>
+        </blockquote>
+
+        <div class="overview-grid">
+          <div class="card wettkaempfe-card reveal">
+            <h2 class="card-title">Nächste Wettkämpfe</h2>
+            <ul id="wettkaempfe-liste" class="wettkaempfe-liste"></ul>
+          </div>
+
+          <div class="overview-images reveal" id="overview-images"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÜBER MICH -->
+    <section id="ueber-mich" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Portrait</span>
+          <h2>Über mich</h2>
+        </div>
+        <div class="split">
+          <div class="split-text reveal">
+            <p class="section-text" id="ueber-mich-text"></p>
+          </div>
+          <figure class="split-media reveal">
+            <img id="ueber-mich-bild" src="" alt="Lino Gautschi">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- RETTUNGSSCHWIMMSPORT -->
+    <section id="rettungsschwimmsport" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Der Sport</span>
+          <h2>Rettungsschwimmsport</h2>
+        </div>
+        <p class="section-text section-text--wide reveal" id="rettungsschwimmsport-text"></p>
+      </div>
+    </section>
+
+    <!-- RESULTATE: Pool -> Beach/Ocean -> Erfolge -->
+    <section id="resultate" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Wettkampf</span>
+          <h2>Resultate</h2>
+        </div>
+
+        <div class="resultate-block reveal">
+          <h3 id="pool-titel"></h3>
+          <p class="block-text" id="pool-text"></p>
+          <div class="table-wrap">
+            <table id="pool-tabelle" class="resultate-tabelle">
+              <thead>
+                <tr>
+                  <th>Disziplin</th>
+                  <th>All-Time PB</th>
+                  <th>Saison-PB</th>
+                  <th>Letztes Resultat</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="resultate-block reveal">
+          <h3 id="beach-titel"></h3>
+          <p class="block-text" id="beach-text"></p>
+          <div class="table-wrap">
+            <table id="beach-tabelle" class="resultate-tabelle">
+              <thead>
+                <tr>
+                  <th>Disziplin</th>
+                  <th>Bestes Resultat</th>
+                  <th>Letztes Resultat</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="resultate-block reveal">
+          <h3>Erfolge</h3>
+          <ul id="erfolge-liste" class="erfolge-liste"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPONSOREN -->
+    <section id="sponsoren" class="section section-alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Partner</span>
+          <h2>Sponsoren</h2>
+        </div>
+
+        <div id="sponsoren-kategorien"></div>
+
+        <div class="sponsor-cta reveal" id="sponsor-cta"></div>
+      </div>
+    </section>
+
+    <!-- GALERIE -->
+    <section id="galerie" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Eindrücke</span>
+          <h2>Galerie</h2>
+        </div>
+        <div id="galerie-bilder" class="galerie-grid"></div>
+        <p class="galerie-link reveal" id="galerie-instagram-link"></p>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="section section-kontakt">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">Kontakt</span>
+          <h2>Auf ein Wort</h2>
+        </div>
+        <dl id="kontakt-liste" class="kontakt-liste reveal"></dl>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <img class="footer-logo" src="assets/images/logo/logo-mark-light.svg" alt="">
+      <p>&copy; <span id="jahr"></span> <span id="footer-name"></span></p>
+    </div>
+  </footer>
+
+  <script src="data/content.js"></script>
+  <script src="data/resultate.js"></script>
+  <script src="data/sponsoren.js"></script>
+  <script src="data/galerie.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/theme.js"></script>
+</body>
+</html>

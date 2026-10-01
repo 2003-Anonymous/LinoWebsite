@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b3d62"/>
+      <stop offset="100%" stop-color="#1d6fa5"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#g4)"/>
+  <path d="M0 372 C 200 358, 320 386, 520 372 S 720 358, 800 368" fill="none" stroke="#ffffff" stroke-opacity="0.180" stroke-width="2"/><path d="M0 444 C 200 425, 320 463, 520 444 S 720 425, 800 438" fill="none" stroke="#ffffff" stroke-opacity="0.155" stroke-width="2"/><path d="M0 516 C 200 492, 320 540, 520 516 S 720 492, 800 509" fill="none" stroke="#ffffff" stroke-opacity="0.130" stroke-width="2"/><path d="M0 588 C 200 559, 320 617, 520 588 S 720 559, 800 579" fill="none" stroke="#ffffff" stroke-opacity="0.105" stroke-width="2"/><path d="M0 660 C 200 626, 320 694, 520 660 S 720 626, 800 650" fill="none" stroke="#ffffff" stroke-opacity="0.080" stroke-width="2"/>
+  <text x="50%" y="778" font-family="system-ui, sans-serif" font-size="13" fill="#ffffff" fill-opacity="0.55" text-anchor="middle">Platzhalter</text>
+</svg>

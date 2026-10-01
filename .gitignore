@@ -1,0 +1,25 @@
+# Windows / OneDrive
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.lnk
+
+# macOS (falls Lino oder jemand anderes am Mac arbeitet)
+.DS_Store
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Falls später doch Werkzeuge dazukommen
+node_modules/
+.cache/
+dist/
+
+# Zwischenablagen / Sicherungskopien
+*.bak
+*.tmp
+*.orig
