@@ -73,8 +73,8 @@ module.exports = async (req, res) => {
       headers: { Accept: "application/json", "Content-Type": "application/json" },
       body: JSON.stringify({
         code,
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET
+        client_id: process.env.GIT_CLIENT_ID,
+        client_secret: process.env.GIT_CLIENT_SECRET
       })
     });
 

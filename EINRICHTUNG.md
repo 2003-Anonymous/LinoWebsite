@@ -60,8 +60,8 @@ Seite Anmeldungen durchführen darf.
 
    | Name | Wert |
    |---|---|
-   | `GITHUB_CLIENT_ID` | die Client ID aus Schritt 2 |
-   | `GITHUB_CLIENT_SECRET` | das Client Secret aus Schritt 2 |
+   | `GIT_CLIENT_ID` | die Client ID aus Schritt 2 |
+   | `GIT_CLIENT_SECRET` | das Client Secret aus Schritt 2 |
 
 3. Bei beiden alle Umgebungen angehakt lassen (Production, Preview, Development)
 4. **Wichtig:** Danach **Deployments** → beim neuesten Eintrag auf **⋯** →

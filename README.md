@@ -53,8 +53,8 @@ Danach *Client ID* notieren und ein *Client Secret* erzeugen.
 
 Vercel → Projekt → *Settings* → *Environment Variables*:
 
-- `GITHUB_CLIENT_ID`
-- `GITHUB_CLIENT_SECRET`
+- `GIT_CLIENT_ID`
+- `GIT_CLIENT_SECRET`
 
 Danach einmal neu veröffentlichen (*Redeploy*), damit die Werte greifen.
 

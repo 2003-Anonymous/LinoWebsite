@@ -1,10 +1,10 @@
 module.exports = (req, res) => {
-  const clientId = process.env.GITHUB_CLIENT_ID;
-  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+  const clientId = process.env.GIT_CLIENT_ID;
+  const clientSecret = process.env.GIT_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     res.status(500).send(
-      "Anmeldung ist nicht eingerichtet: GITHUB_CLIENT_ID und GITHUB_CLIENT_SECRET " +
+      "Anmeldung ist nicht eingerichtet: GIT_CLIENT_ID und GIT_CLIENT_SECRET " +
       "fehlen in den Vercel-Umgebungsvariablen."
     );
     return;
