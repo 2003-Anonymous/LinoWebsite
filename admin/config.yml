@@ -1,0 +1,170 @@
+backend:
+  name: github
+  repo: 2003-Anonymous/LinoWebsite
+  branch: main
+  base_url: https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: assets/images/uploads
+public_folder: /assets/images/uploads
+
+locale: de
+
+collections:
+  - name: inhalte
+    label: Inhalte
+    files:
+      - name: start
+        label: Startseite, Über mich & Kontakt
+        file: data/content.json
+        icon: home
+        fields:
+          - name: meta
+            label: Grunddaten
+            widget: object
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: tagline, label: Untertitel, widget: string }
+
+          - name: home
+            label: Startseite
+            widget: object
+            fields:
+              - name: heroImages
+                label: Bilder im Überblick
+                label_singular: Bild
+                widget: list
+                field: { name: bild, label: Bild, widget: image }
+              - { name: zitat, label: Zitat, widget: text, required: false }
+              - { name: zitatAutor, label: Zitat – von wem, widget: string, required: false }
+              - name: naechsteWettkaempfe
+                label: Nächste Wettkämpfe
+                label_singular: Wettkampf
+                widget: list
+                summary: '{{fields.name}} – {{fields.ort}}'
+                required: false
+                fields:
+                  - { name: name, label: Wettkampf, widget: string }
+                  - { name: ort, label: Ort, widget: string, required: false }
+                  - { name: datum, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, required: false }
+
+          - name: ueberMich
+            label: Über mich
+            widget: object
+            fields:
+              - { name: text, label: Text, widget: text }
+              - { name: bild, label: Bild, widget: image, required: false }
+
+          - name: rettungsschwimmsport
+            label: Rettungsschwimmsport
+            widget: object
+            fields:
+              - { name: text, label: Text, widget: text }
+
+          - name: kontakt
+            label: Kontakt
+            widget: object
+            fields:
+              - { name: email, label: E-Mail, widget: string, required: false }
+              - { name: telefon, label: Telefon, widget: string, required: false }
+              - { name: instagram, label: Instagram-Link, widget: string, required: false }
+              - { name: ort, label: Ort, widget: string, required: false }
+
+      - name: resultate
+        label: Resultate
+        file: data/resultate.json
+        icon: timer
+        fields:
+          - name: pool
+            label: Pool
+            widget: object
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Einleitungstext, widget: text, required: false }
+              - name: disziplinen
+                label: Disziplinen
+                label_singular: Disziplin
+                widget: list
+                summary: '{{fields.name}}'
+                required: false
+                fields:
+                  - { name: name, label: Disziplin, widget: string }
+                  - { name: allTimePB, label: All-Time PB, widget: string, required: false }
+                  - { name: saisonPB, label: Saison-PB, widget: string, required: false }
+                  - name: letztesResultat
+                    label: Letztes Resultat
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: zeit, label: Zeit, widget: string, required: false }
+                      - { name: wettkampf, label: Wettkampf, widget: string, required: false }
+                      - { name: datum, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, required: false }
+
+          - name: beach
+            label: Beach / Ocean
+            widget: object
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: text, label: Einleitungstext, widget: text, required: false }
+              - name: disziplinen
+                label: Disziplinen
+                label_singular: Disziplin
+                widget: list
+                summary: '{{fields.name}}'
+                required: false
+                fields:
+                  - { name: name, label: Disziplin, widget: string }
+                  - { name: bestesResultat, label: Bestes Resultat, widget: string, required: false }
+                  - { name: letztesResultat, label: Letztes Resultat, widget: string, required: false }
+
+          - name: erfolge
+            label: Erfolge
+            label_singular: Erfolg
+            widget: list
+            summary: '{{fields.titel}}'
+            required: false
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: wettkampf, label: Wettkampf, widget: string, required: false }
+              - { name: datum, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, required: false }
+
+      - name: sponsoren
+        label: Sponsoren
+        file: data/sponsoren.json
+        icon: handshake
+        fields:
+          - { name: text, label: Einleitungstext, widget: text, required: false }
+          - name: sponsoren
+            label: Sponsoren
+            label_singular: Sponsor
+            widget: list
+            summary: '{{fields.name}}'
+            required: false
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: logo, label: Logo, widget: image, required: false }
+              - { name: url, label: Website (optional), widget: string, required: false }
+              - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+          - name: cta
+            label: Abschluss-Text ("Habe ich dein Interesse geweckt?")
+            widget: object
+            fields:
+              - { name: titel, label: Titel, widget: string, required: false }
+              - { name: text, label: Text, widget: text, required: false }
+              - { name: buttonText, label: Button-Beschriftung, widget: string, required: false }
+              - { name: buttonLink, label: Button-Ziel, widget: string, required: false }
+
+      - name: galerie
+        label: Galerie
+        file: data/galerie.json
+        icon: photo_library
+        fields:
+          - { name: instagramUrl, label: Instagram-Link, widget: string, required: false }
+          - name: bilder
+            label: Bilder
+            label_singular: Bild
+            widget: list
+            required: false
+            fields:
+              - { name: src, label: Bild, widget: image }
+              - { name: bildtext, label: Bildtext, widget: string, required: false }

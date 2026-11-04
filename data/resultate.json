@@ -1,0 +1,61 @@
+{
+  "pool": {
+    "titel": "Pool",
+    "text": "Zeiten aus dem Hallenbad – mit persönlicher Bestzeit, Saisonbestzeit und dem letzten Wettkampfresultat.",
+    "disziplinen": [
+      {
+        "name": "100m Rettungsschwimmen mit Flossen",
+        "allTimePB": "0:58.20",
+        "saisonPB": "0:59.10",
+        "letztesResultat": {
+          "zeit": "0:59.10",
+          "wettkampf": "Schweizermeisterschaft",
+          "datum": "2026-06-14"
+        }
+      },
+      {
+        "name": "200m Hindernisschwimmen",
+        "allTimePB": "2:05.40",
+        "saisonPB": "2:07.90",
+        "letztesResultat": {
+          "zeit": "2:07.90",
+          "wettkampf": "Schweizermeisterschaft",
+          "datum": "2026-06-14"
+        }
+      }
+    ]
+  },
+  "beach": {
+    "titel": "Beach / Ocean",
+    "text": "Am Strand und im offenen Wasser zählt die Rangierung – deshalb hier das beste und das letzte Resultat statt Bestzeiten.",
+    "disziplinen": [
+      {
+        "name": "Beach Flags",
+        "bestesResultat": "1. Platz, Swiss Beach Championships 2025",
+        "letztesResultat": "3. Platz, Beach Cup 2026"
+      },
+      {
+        "name": "Surf Race",
+        "bestesResultat": "2. Platz, Swiss Beach Championships 2025",
+        "letztesResultat": "5. Platz, Beach Cup 2026"
+      },
+      {
+        "name": "Ocean Man",
+        "bestesResultat": "4. Platz, Ocean Challenge 2025",
+        "letztesResultat": "6. Platz, Ocean Challenge 2026"
+      }
+    ]
+  },
+  "erfolge": [
+    {
+      "titel": "Top 10 Finish",
+      "wettkampf": "Europameisterschaft",
+      "datum": "2025-07-20"
+    },
+    {
+      "titel": "B-Final",
+      "wettkampf": "Weltmeisterschaft",
+      "datum": "2024-08-10"
+    }
+  ]
+}

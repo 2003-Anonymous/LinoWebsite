@@ -1,17 +1,7 @@
-// Gemeinsame Effekte für beide Designs:
-// - Einblenden beim Scrollen
-// - Luftblasen im Hintergrund
-// - Lightbox für die Galerie
-// - Seiten-Leiste mit Abschnitts-Punkten und Tiefenanzeige
-//
-// Alles ist optional und wird bei "prefers-reduced-motion" reduziert.
-
 (function () {
   "use strict";
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- Einblenden beim Scrollen ---------- */
 
   let revealObserver = null;
 
@@ -36,9 +26,55 @@
       node.style.transitionDelay = Math.max(index, 0) * 90 + "ms";
       revealObserver.observe(node);
     });
+
+    netzStarten();
+  }
+
+  let netzTimer = null;
+  let netzScroll = null;
+
+  function sichtbarkeitPruefen() {
+    const offen = document.querySelectorAll(".reveal:not(.is-visible)");
+    if (!offen.length) { netzStoppen(); return; }
+
+    const hoehe = window.innerHeight;
+    offen.forEach(node => {
+      const kasten = node.getBoundingClientRect();
+
+      if (kasten.top < hoehe - 200) {
+
+        node.style.transition = "none";
+        node.style.transitionDelay = "0ms";
+        node.classList.add("is-visible");
+      }
+    });
+  }
+
+  function netzStarten() {
+
+    setTimeout(() => {
+      if (!document.querySelector(".reveal:not(.is-visible)")) return;
+
+      let letzterLauf = 0;
+      netzScroll = () => {
+        const jetzt = Date.now();
+        if (jetzt - letzterLauf < 200) return;
+        letzterLauf = jetzt;
+        sichtbarkeitPruefen();
+      };
+      window.addEventListener("scroll", netzScroll, { passive: true });
+      netzTimer = setInterval(sichtbarkeitPruefen, 500);
+      sichtbarkeitPruefen();
+    }, 900);
+  }
+
+  function netzStoppen() {
+    if (netzTimer) { clearInterval(netzTimer); netzTimer = null; }
+    if (netzScroll) { window.removeEventListener("scroll", netzScroll); netzScroll = null; }
   }
 
   function destroyReveals() {
+    netzStoppen();
     if (revealObserver) { revealObserver.disconnect(); revealObserver = null; }
     document.documentElement.removeAttribute("data-reveal-ready");
     document.querySelectorAll(".reveal").forEach(node => {
@@ -46,8 +82,6 @@
       node.style.transitionDelay = "";
     });
   }
-
-  /* ---------- Luftblasen ---------- */
 
   function initBubbles() {
     if (prefersReducedMotion || document.querySelector(".bubble-layer")) return;
@@ -76,8 +110,6 @@
     const layer = document.querySelector(".bubble-layer");
     if (layer) layer.remove();
   }
-
-  /* ---------- Lightbox ---------- */
 
   let lightbox = null;
   let galleryHandler = null;
@@ -122,16 +154,11 @@
     galleryHandler = null;
   }
 
-  /* ---------- Seitenleiste: Abschnitte + Tiefenanzeige ---------- */
-  //
-  // Die Leiste übersetzt den Scrollfortschritt in "Tiefe" – man taucht beim
-  // Lesen immer tiefer. Die Punkte springen zu den Abschnitten.
-
   let rail = null;
   let railSections = [];
   let railOnScroll = null;
 
-  const MAX_TIEFE = 25; // Meter am Seitenende
+  const MAX_TIEFE = 25;
 
   function initRail() {
     if (rail || window.innerWidth < 1100) return;
@@ -175,7 +202,6 @@
       fill.style.transform = `scaleY(${progress})`;
       readout.textContent = (progress * MAX_TIEFE).toFixed(1).replace(".", ",") + " m";
 
-      // aktiver Abschnitt = der, dessen Oberkante zuletzt passiert wurde
       let activeIndex = 0;
       railSections.forEach(({ section }, index) => {
         if (window.scrollY >= section.offsetTop - window.innerHeight * 0.4) activeIndex = index;
@@ -199,8 +225,6 @@
     if (rail) { rail.remove(); rail = null; }
     railSections = [];
   }
-
-  /* ---------- Schnittstelle ---------- */
 
   let active = false;
 

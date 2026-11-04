@@ -1,48 +1,32 @@
-// Hero des "Ozean"-Designs: animierte 3D-Wasseroberfläche in WebGL.
-//
-// Bewusst ohne 3D-Bibliothek: ein einziger Fragment-Shader zeichnet Himmel,
-// Wellen, Spiegelung, Sonnenglitzern und Schaum. Ohne WebGL bleibt der
-// CSS-Verlauf aus theme-ocean.css stehen.
-
 (function () {
   "use strict";
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* =========================================================
-     Wasseroberfläche (WebGL)
-     ========================================================= */
 
   const VERTEX_SHADER = `
     attribute vec2 aPos;
     void main() {
       gl_Position = vec4(aPos, 0.0, 1.0);
     }
-  `;
+`;
 
-  // OCTAVES wird vor dem Kompilieren je nach Gerät ersetzt (Performance).
   const FRAGMENT_SHADER = `
     precision highp float;
 
     uniform vec2  uResolution;
     uniform float uTime;
-    uniform vec2  uMouse;   // -1 .. 1
-    uniform float uScroll;  // 0 .. 1
-    uniform vec3  uRipple;  // xy = Position auf dem Wasser, z = Startzeit (Klick)
-    uniform vec3  uHover;   // xy = Position unter dem Zeiger, z = Stärke 0..1
+    uniform vec2  uMouse;
+    uniform float uScroll;
+    uniform vec3  uRipple;
+    uniform vec3  uHover;
 
     vec2 rot(vec2 v, float a) {
       float c = cos(a), s = sin(a);
       return vec2(v.x * c - v.y * s, v.x * s + v.y * c);
     }
 
-    // ---- Wellen -----------------------------------------------------------
-    // Summe gerichteter Wellen mit geschärften Kämmen. Jede Oktave verschiebt
-    // die Koordinaten der nächsten ("Domain-Warp") – dadurch wirken die Wellen
-    // unregelmässig statt wie ein gleichmässiges Sinusmuster.
-    // "detail" blendet feine Oktaven in der Ferne aus, sonst flimmert es.
     float oceanHeight(vec2 p, float t, float detail) {
-      vec2 origin = p;        // unverschobene Position, für Maus- und Klickeffekt
+      vec2 origin = p;
       float h = 0.0;
       float amp = 0.70;
       float freq = 0.17;
@@ -53,43 +37,34 @@
       for (int i = 0; i < OCTAVES; i++) {
         float fade = mix(1.0, detail, float(i) / float(OCTAVES));
         float s = sin(dot(p + warp, dir) * freq + t * speed);
-        float crest = pow(0.5 + 0.5 * s, 2.6);      // spitze Kämme, flache Täler
+        float crest = pow(0.5 + 0.5 * s, 2.6);
         float layer = (crest - 0.34) * amp * fade;
         h += layer;
         warp += dir * layer * 3.0;
-        dir = rot(dir, 2.39996323);                  // goldener Winkel: kein Raster
+        dir = rot(dir, 2.39996323);
         amp *= 0.55;
         freq *= 1.95;
         speed *= 1.16;
       }
 
-      // WICHTIG: ab hier "origin" verwenden, nicht "p" – p wurde im Loop
-      // durch den Domain-Warp verschoben, der Effekt sässe sonst daneben.
-
-      // Dauerhafte Kräuselung unter dem Zeiger. Sie folgt der Maus, statt
-      // bei jeder Bewegung neu zu starten.
       if (uHover.z > 0.003) {
         float d = length(origin - uHover.xy);
-        // Harte Begrenzung: ohne sie kräuselt der Effekt minimal die ganze
-        // Fläche – im Glitzerpfad fällt das mehr auf als am Cursor selbst.
+
         float huelle = smoothstep(6.5, 0.0, d);
         h += sin(d * 3.0 - uTime * 6.0) * huelle * huelle * 0.46 * uHover.z * detail;
       }
 
-      // Ringwelle vom Klick: eine Front, die nach aussen läuft und ausklingt
       float alter = uTime - uRipple.z;
       if (alter > 0.0 && alter < 4.0) {
         float d = length(origin - uRipple.xy);
         float front = alter * 5.0;
-        float band = exp(-abs(d - front) * 0.85);     // schmale, laufende Front
+        float band = exp(-abs(d - front) * 0.85);
         h += sin((d - front) * 2.6) * band * exp(-alter * 0.7) * 0.75 * detail;
       }
 
       return h;
     }
 
-    // Gibt die Höhe gleich mit zurück (hOut). Sonst müsste sie danach ein
-    // viertes Mal berechnet werden – das ist der teuerste Teil des Shaders.
     vec3 oceanNormal(vec2 p, float t, float eps, float detail, out float hOut) {
       float h  = oceanHeight(p, t, detail);
       float hx = oceanHeight(p + vec2(eps, 0.0), t, detail);
@@ -98,7 +73,6 @@
       return normalize(vec3(h - hx, eps, h - hz));
     }
 
-    // ---- Himmel -----------------------------------------------------------
     vec3 skyColor(vec3 rd, vec3 sunDir) {
       float y = max(rd.y, 0.0);
       vec3 zenith  = vec3(0.016, 0.062, 0.115);
@@ -106,10 +80,10 @@
       vec3 col = mix(horizon, zenith, pow(y, 0.50));
 
       float sd = max(dot(rd, sunDir), 0.0);
-      col += vec3(1.00, 0.86, 0.66) * pow(sd, 900.0) * 3.2;   // Sonnenscheibe
-      col += vec3(1.00, 0.80, 0.58) * pow(sd, 26.0) * 0.30;   // enger Hof
-      col += vec3(0.80, 0.72, 0.62) * pow(sd, 4.0) * 0.09;    // weicher Schein
-      col = mix(col, horizon * 1.06, exp(-y * 20.0) * 0.45);  // Dunst am Horizont
+      col += vec3(1.00, 0.86, 0.66) * pow(sd, 900.0) * 3.2;
+      col += vec3(1.00, 0.80, 0.58) * pow(sd, 26.0) * 0.30;
+      col += vec3(0.80, 0.72, 0.62) * pow(sd, 4.0) * 0.09;
+      col = mix(col, horizon * 1.06, exp(-y * 20.0) * 0.45);
       return col;
     }
 
@@ -118,7 +92,6 @@
 
       vec3 sunDir = normalize(vec3(-0.34, 0.105, -1.0));
 
-      // Kamera knapp über dem Wasser, taucht beim Scrollen ab
       vec3 ro = vec3(0.0, 1.55 + uScroll * 1.6, 8.0);
       vec3 ta = vec3(uMouse.x * 0.5, 0.75 - uMouse.y * 0.16 - uScroll * 0.9, 0.0);
 
@@ -135,11 +108,11 @@
         float dist = -ro.y / rd.y;
         vec3 pos = ro + rd * dist;
 
-        float detail = exp(-dist * 0.016);              // fernes Wasser glatt
-        float eps = 0.010 + dist * 0.0026;       // Abtastung ~ Pixelgrösse
+        float detail = exp(-dist * 0.016);
+        float eps = 0.010 + dist * 0.0026;
         float h;
         vec3 n = oceanNormal(pos.xz, uTime, eps, detail, h);
-        // Ganz hinten Normalen aufrichten – verhindert Streifen am Horizont
+
         n = normalize(mix(n, vec3(0.0, 1.0, 0.0), smoothstep(45.0, 170.0, dist)));
 
         vec3 v = -rd;
@@ -147,32 +120,26 @@
         float fres = 0.02 + 0.98 * pow(1.0 - max(dot(v, n), 0.0), 5.0);
 
         vec3 refl = reflect(rd, n);
-        refl.y = abs(refl.y);                           // nie unter den Horizont spiegeln
+        refl.y = abs(refl.y);
         vec3 reflCol = skyColor(refl, sunDir);
 
         vec3 deep    = vec3(0.007, 0.048, 0.085);
         vec3 shallow = vec3(0.022, 0.160, 0.215);
         vec3 water = mix(deep, shallow, clamp(h * 0.9 + 0.45, 0.0, 1.0));
 
-        // Licht, das durch die Wellenkämme schimmert
         float sss = pow(max(dot(normalize(rd + sunDir * 0.55), n), 0.0), 3.0);
         water += vec3(0.04, 0.26, 0.28) * sss * clamp(h + 0.25, 0.0, 1.0);
 
         col = mix(water, reflCol, fres);
 
-        // Glitzerpfad: in der Ferne "rauer" -> schmaler, funkelnder Streifen
         vec3 hv = normalize(sunDir + v);
         float shine = mix(900.0, 90.0, clamp(dist * 0.016, 0.0, 1.0));
         col += vec3(1.0, 0.92, 0.78) * pow(max(dot(n, hv), 0.0), shine) * 2.3 * fres;
 
-        // Schaum auf den steilsten Kämmen, nur im Vordergrund
         float steep = 1.0 - n.y;
         float foam = smoothstep(0.07, 0.22, steep) * smoothstep(0.28, 0.52, h) * exp(-dist * 0.045);
         col = mix(col, vec3(0.72, 0.83, 0.88), foam * 0.45);
 
-        // Der Mauseffekt bekommt eigenes Licht. Ohne das wäre er nur dort zu
-        // sehen, wo das Wasser ohnehin hell ist – im Nahbereich ist die
-        // Oberfläche fast schwarz und eine Höhenänderung allein fiele nicht auf.
         if (uHover.z > 0.003) {
           float dh = length(pos.xz - uHover.xy);
           float huelle = smoothstep(6.5, 0.0, dh);
@@ -188,7 +155,6 @@
           col += vec3(0.45, 0.72, 0.85) * bandK * exp(-alterK * 0.7) * 0.30;
         }
 
-        // Dunst zum Horizont: geht exakt in die Himmelsfarbe über
         float fog = 1.0 - exp(-dist * 0.0095);
         col = mix(col, skyColor(vec3(rd.x, 0.002, rd.z), sunDir), fog);
       }
@@ -196,13 +162,12 @@
       float vig = smoothstep(1.60, 0.30, length(uv * vec2(0.9, 1.0)));
       col *= mix(0.80, 1.0, vig);
 
-      // filmisches Tonemapping + Gamma
       col = (col * (2.51 * col + 0.03)) / (col * (2.43 * col + 0.59) + 0.14);
       col = pow(clamp(col, 0.0, 1.0), vec3(1.0 / 2.2));
 
       gl_FragColor = vec4(col, 1.0);
     }
-  `;
+`;
 
   const water = {
     canvas: null,
@@ -252,9 +217,8 @@
       depth: false,
       powerPreference: "high-performance"
     });
-    if (!gl) return; // ohne WebGL bleibt der CSS-Verlauf stehen
+    if (!gl) return;
 
-    // Auf schwächeren/kleinen Geräten weniger Wellen-Oktaven rechnen
     const octaves = (mount.clientWidth || window.innerWidth) < 800 ? 4 : 6;
     const fragmentSource = FRAGMENT_SHADER.replace(/OCTAVES/g, String(octaves));
 
@@ -272,7 +236,6 @@
     }
     gl.useProgram(program);
 
-    // Ein grosses Dreieck deckt den ganzen Bildschirm ab
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
@@ -335,10 +298,6 @@
     renderWater();
   }
 
-  // Position im Canvas -> Punkt auf der Wasserfläche.
-  // Muss exakt dieselbe Kamera benutzen wie der Shader, sonst wandert der
-  // Effekt weg – in der Ferne wirkt sich schon ein kleiner Unterschied
-  // riesig aus, weil der Sehstrahl dort fast parallel zum Wasser liegt.
   function screenToWater(x, y) {
     const w = water.cssBreite, h = water.cssHoehe;
     if (!w || !h) return null;
@@ -362,7 +321,7 @@
 
     if (rd[1] >= -0.02) return null;
     const t = -ro[1] / rd[1];
-    if (t > 60) return null;          // weiter hinten ist der Punkt nicht mehr zuverlässig
+    if (t > 60) return null;
     return [ro[0] + rd[0] * t, ro[2] + rd[2] * t];
   }
 
@@ -383,8 +342,7 @@
 
   function resizeWater() {
     if (!water.canvas) return;
-    // Auf die tatsächliche Grösse des Hero beziehen, nicht auf das Fenster –
-    // sonst passen Seitenverhältnis und Mausumrechnung nicht zusammen.
+
     const hero = document.querySelector(".hero");
     const cssB = hero ? hero.clientWidth : window.innerWidth;
     const cssH = hero ? hero.clientHeight : window.innerHeight;
@@ -407,8 +365,6 @@
 
     const time = (performance.now() - water.startTime) / 1000;
 
-    // Nachziehen zeitbasiert statt pro Bild: sonst hängt das Tempo an der
-    // Bildrate und der Effekt braucht auf langsamen Geräten ewig.
     const dt = Math.min((performance.now() - water.letzteZeit) / 1000, 0.1);
     water.letzteZeit = performance.now();
     const nachzug = 1 - Math.exp(-dt * 6);
@@ -418,8 +374,6 @@
 
     const scroll = aktuellerScroll();
 
-    // Die Störung unter dem Zeiger wird in JEDEM Bild neu berechnet – nur so
-    // bleibt sie unter dem Cursor, auch während die Kamera noch nachzieht.
     if (water.pointer.drin) {
       const pos = screenToWater(water.pointer.x, water.pointer.y);
       if (pos) {
@@ -443,7 +397,6 @@
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-    // Bei reduzierter Bewegung nur ein Standbild zeichnen
     if (prefersReducedMotion) { water.frame = 0; return; }
 
     water.frame = (water.visible && !document.hidden)

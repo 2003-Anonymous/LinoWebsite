@@ -1,0 +1,29 @@
+{
+  "text": "Ohne diese Partner wäre mein Weg im Rettungsschwimmsport nicht möglich – herzlichen Dank für die Unterstützung.",
+  "sponsoren": [
+    {
+      "name": "Sensolar",
+      "logo": "assets/images/sponsors/placeholder.svg",
+      "url": "https://example.com",
+      "beschreibung": "Sensolar unterstützt mich auf meinem Weg im Rettungsschwimmsport."
+    },
+    {
+      "name": "Beispiel Sponsor AG",
+      "logo": "assets/images/sponsors/placeholder.svg",
+      "url": "https://example.com",
+      "beschreibung": "Kurzer Text zum Sponsor – was er beisteuert und warum die Zusammenarbeit passt."
+    },
+    {
+      "name": "Zweiter Beispiel-Sponsor",
+      "logo": "assets/images/sponsors/placeholder.svg",
+      "url": "",
+      "beschreibung": "Beispiel-Eintrag – kann im Admin-Bereich jederzeit ersetzt oder gelöscht werden."
+    }
+  ],
+  "cta": {
+    "titel": "Habe ich dein Interesse geweckt?",
+    "text": "Als Sponsor unterstützt du nicht nur meinen Weg im Rettungsschwimmsport – dein Logo erscheint auf dieser Website, auf meiner Wettkampfausrüstung und in meinen Social-Media-Beiträgen. Melde dich gerne für ein unverbindliches Gespräch oder für meine Sponsoring-Unterlagen.",
+    "buttonText": "Kontakt aufnehmen",
+    "buttonLink": "#kontakt"
+  }
+}

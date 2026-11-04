@@ -1,11 +1,5 @@
-/* =========================================================
-   base.css – gemeinsames Grundgerüst für BEIDE Designs.
-   Enthält Layout, Struktur und Standardwerte.
-   Farben/Effekte kommen aus theme-simple.css bzw. theme-premium.css.
-   ========================================================= */
-
 :root {
-  /* Diese Werte werden von den Theme-Dateien überschrieben */
+
   --color-bg: #ffffff;
   --color-bg-alt: #f2f6f9;
   --color-surface: #ffffff;
@@ -95,8 +89,6 @@ img { max-width: 100%; }
 }
 .skip-link:focus { left: 8px; top: 8px; }
 
-/* ---------- Header / Navigation ---------- */
-
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -127,8 +119,6 @@ img { max-width: 100%; }
   transition: height 0.35s var(--ease-out), opacity 0.3s var(--ease-out);
 }
 
-/* Es liegen zwei Logo-Varianten übereinander – je nach Hintergrund wird
-   die dunkle oder die helle eingeblendet. */
 .logo-img--light { display: none; }
 
 .main-nav ul {
@@ -201,8 +191,6 @@ img { max-width: 100%; }
   }
 }
 
-/* ---------- Hero ---------- */
-
 .hero {
   position: relative;
   min-height: 100svh;
@@ -237,7 +225,7 @@ img { max-width: 100%; }
   align-items: center;
   text-align: center;
   padding-top: var(--header-height);
-  /* Platz für Scroll-Hinweis und Wellenkante darunter */
+
   padding-bottom: clamp(150px, 16vw, 240px);
 }
 
@@ -258,10 +246,10 @@ img { max-width: 100%; }
 
 .hero-scroll {
   position: absolute;
-  bottom: clamp(74px, 11vw, 150px); /* über der Wellenkante */
+  bottom: clamp(74px, 11vw, 150px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3; /* sonst verdeckt die Welle den Hinweis */
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,8 +283,6 @@ img { max-width: 100%; }
   pointer-events: none;
 }
 
-/* ---------- Sections ---------- */
-
 .section {
   padding-block: var(--section-padding);
   scroll-margin-top: var(--header-height);
@@ -307,7 +293,6 @@ img { max-width: 100%; }
   margin-bottom: 42px;
 }
 
-/* Abschnitte werden wie Bahnen durchnummeriert (01, 02, …) */
 main { counter-reset: abschnitt; }
 .section-head { counter-increment: abschnitt; }
 
@@ -357,8 +342,6 @@ main { counter-reset: abschnitt; }
   max-width: 68ch;
   margin-bottom: 20px;
 }
-
-/* ---------- Überblick (Zitat / Wettkämpfe / Bilder) ---------- */
 
 .zitat {
   margin: 0 0 56px;
@@ -460,8 +443,6 @@ main { counter-reset: abschnitt; }
   display: block;
 }
 
-/* ---------- Split (Über mich) ---------- */
-
 .split {
   display: grid;
   grid-template-columns: 1fr minmax(260px, 420px);
@@ -482,8 +463,6 @@ main { counter-reset: abschnitt; }
   border-radius: var(--radius-lg);
   display: block;
 }
-
-/* ---------- Resultate ---------- */
 
 .resultate-block { margin-bottom: 56px; }
 .resultate-block:last-child { margin-bottom: 0; }
@@ -547,7 +526,6 @@ main { counter-reset: abschnitt; }
   background: var(--color-surface);
 }
 
-/* Medaillen-Plakette vor jedem Erfolg */
 .erfolg-icon {
   flex: none;
   width: 26px;
@@ -581,17 +559,12 @@ main { counter-reset: abschnitt; }
   color: var(--color-muted);
 }
 
-/* ---------- Sponsoren ---------- */
-
-.sponsor-kategorie { margin-bottom: 56px; }
-
-.sponsor-kategorie h3 { margin-bottom: 8px; }
-
 .sponsoren-liste {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 22px;
   margin-top: 24px;
+  margin-bottom: 56px;
 }
 
 .sponsor-item {
@@ -608,7 +581,6 @@ main { counter-reset: abschnitt; }
               border-color 0.35s var(--ease-out);
 }
 
-/* Logos bewusst gross – auf Wunsch von Lino */
 .sponsor-logo {
   display: flex;
   align-items: center;
@@ -667,8 +639,6 @@ main { counter-reset: abschnitt; }
 
 .btn:hover { transform: translateY(-2px); }
 
-/* ---------- Galerie ---------- */
-
 .galerie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -707,8 +677,6 @@ main { counter-reset: abschnitt; }
   text-decoration: none;
 }
 
-/* ---------- Kontakt ---------- */
-
 .kontakt-liste {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -736,8 +704,6 @@ main { counter-reset: abschnitt; }
 
 .kontakt-liste a { text-decoration: none; }
 
-/* ---------- Footer ---------- */
-
 .site-footer {
   padding-block: 40px;
   font-size: 0.9rem;
@@ -755,13 +721,8 @@ main { counter-reset: abschnitt; }
 
 .site-footer p { margin: 0; }
 
-/* ---------- Reveal-Animation (wird vom Premium-Design genutzt) ---------- */
-
 .reveal { opacity: 1; }
 
-/* Inhalte werden NUR versteckt, solange data-reveal-ready gesetzt ist.
-   Das Attribut wird entfernt, wenn premium.js nicht lädt – sonst bliebe
-   bei einem Ladefehler die halbe Seite unsichtbar. */
 [data-reveal-ready] .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -781,11 +742,6 @@ main { counter-reset: abschnitt; }
     transition: none;
   }
 }
-
-
-/* =========================================================
-   Wettkampf-Anzeigetafel (Resultate)
-   ========================================================= */
 
 .zeit-zelle { white-space: nowrap; }
 
@@ -811,7 +767,6 @@ main { counter-reset: abschnitt; }
   vertical-align: 2px;
 }
 
-/* Podestplätze in der Beach/Ocean-Tabelle */
 .medaille {
   display: inline-block;
   width: 11px;
@@ -828,10 +783,6 @@ main { counter-reset: abschnitt; }
 
 .podest td, td.podest { white-space: normal; }
 
-/* =========================================================
-   Bahnenleine als Trenner zwischen den Abschnitten
-   ========================================================= */
-
 .section + .section::before {
   content: "";
   position: absolute;
@@ -846,10 +797,6 @@ main { counter-reset: abschnitt; }
   background-size: 126px 18px, 18px 18px;
   opacity: 0.5;
 }
-
-/* =========================================================
-   Hinweis im Hero ("bewege die Maus …")
-   ========================================================= */
 
 .hero-hint {
   margin: 22px 0 0;
@@ -868,10 +815,6 @@ main { counter-reset: abschnitt; }
   inset: 0;
   display: block;
 }
-
-/* =========================================================
-   Tiefen-Leiste am linken Rand
-   ========================================================= */
 
 .depth-rail {
   position: fixed;
@@ -921,16 +864,12 @@ main { counter-reset: abschnitt; }
 
 .depth-rail-dot:hover { opacity: 0.75; }
 
-/* Der aktive Punkt bekommt einen Ring, statt den Punkt zu skalieren –
-   sonst würde die Beschriftung mitskaliert und verzerrt aussehen. */
 .depth-rail-dot.is-active {
   opacity: 1;
   background: var(--color-accent);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 25%, transparent);
 }
 
-/* Die Beschriftung erscheint nur beim Darüberfahren. Dauerhaft eingeblendet
-   würde sie bei schmalen Fenstern in den Seiteninhalt ragen. */
 .depth-rail-label {
   position: absolute;
   left: 20px;
@@ -960,7 +899,6 @@ main { counter-reset: abschnitt; }
   opacity: 0.5;
 }
 
-/* Erst anzeigen, wenn links wirklich Platz neben dem Inhalt ist */
 @media (max-width: 1199px) {
   .depth-rail { display: none; }
 }

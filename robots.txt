@@ -1,2 +1,6 @@
 User-agent: *
+Allow: /
 Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/sitemap.xml

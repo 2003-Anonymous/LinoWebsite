@@ -1,10 +1,3 @@
-// Lädt das Design der Seite: die gemeinsamen Effekte und den passenden Hero.
-//
-// Fest eingestellt ist "ocean" (Meer) – siehe Inline-Skript in index.html.
-// Das zweite Design "pool" (helles Becken, Bahnenleinen) liegt weiterhin im
-// Projekt und lässt sich über ?design=pool anschauen; einen Umschalter auf
-// der Seite gibt es bewusst nicht mehr.
-
 (function () {
   const DESIGNS = {
     ocean: { css: "assets/css/theme-ocean.css", js: "assets/js/hero-ocean.js", global: "LinoOceanHero" },
@@ -31,13 +24,13 @@
     document.documentElement.dataset.design = design;
     document.getElementById("theme-css").href = DESIGNS[design].css;
 
-    // Sicherheitsnetz: Laden die Skripte nicht, werden die Inhalte trotzdem
-    // sichtbar (die Einblend-Animation versteckt sie sonst dauerhaft).
     const notbremse = setTimeout(alleInhalteZeigen, 2500);
 
     Promise.all([
       skriptLaden("assets/js/effects.js"),
-      skriptLaden(DESIGNS[design].js)
+      skriptLaden(DESIGNS[design].js),
+
+      window.LinoInhalteBereit || Promise.resolve()
     ]).then(() => {
       clearTimeout(notbremse);
       if (window.LinoEffects) window.LinoEffects.init();

@@ -1,20 +1,13 @@
-// Hero des "Becken"-Designs: interaktive Bahnenleinen.
-//
-// Jede Leine ist eine Kette von Schwimmkörpern, die über eine einfache
-// Wellengleichung gekoppelt sind. Die Maus drückt die Leinen weg, ein Klick
-// erzeugt einen Stoss samt Ringwelle – die Wellen laufen dann der Leine
-// entlang aus. Canvas 2D, keine Bibliothek.
-
 (function () {
   "use strict";
 
   const TAU = Math.PI * 2;
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const ABSTAND = 34;      // Pixel zwischen zwei Schwimmkörpern
+  const ABSTAND = 34;
   const RADIUS = 13;
-  const DREH_STUFEN = 8;   // vorgerenderte Drehphasen je Farbe
-  const KOPPLUNG = 0.26;   // wie stark Nachbarn aneinander ziehen
+  const DREH_STUFEN = 8;
+  const KOPPLUNG = 0.26;
   const DAEMPFUNG = 0.976;
   const RUECKSTELLUNG = 0.010;
 
@@ -35,8 +28,6 @@
     dpr: 1
   };
 
-  // Die Schwimmkörper werden einmal vorgezeichnet und danach nur noch kopiert.
-  // Einzelne Kreise pro Bild wären bei mehreren hundert Körpern zu teuer.
   function spritesBauen(dpr) {
     const groesse = Math.ceil(RADIUS * 2 * dpr);
     const sprites = {};
@@ -75,8 +66,6 @@
     target.addEventListener(type, handler, opts);
     pool.listeners.push([target, type, handler, opts]);
   }
-
-  /* ---------- Aufbau ---------- */
 
   function initPool() {
     const mount = document.getElementById("hero-bg");
@@ -136,15 +125,13 @@
   }
 
   function leinenBauen() {
-    // Die Leinen lassen die Mitte frei – der Betrachter schaut in Linos Bahn,
-    // und das Logo liegt ungestört darin.
+
     const hoehen = pool.hoehe < 620
       ? [0.13, 0.87]
       : [0.10, 0.25, 0.75, 0.90];
 
     const punkte = Math.max(12, Math.round(pool.breite / ABSTAND));
 
-    // Auslenkungen der alten Leinen möglichst übernehmen (kein Sprung beim Resize)
     const alt = pool.leinen;
     pool.leinen = [];
 
@@ -163,8 +150,6 @@
       });
     });
   }
-
-  /* ---------- Interaktion ---------- */
 
   function heroKoordinaten(event) {
     const rect = pool.canvas.getBoundingClientRect();
@@ -226,8 +211,6 @@
     z.vorY = z.y;
   }
 
-  /* ---------- Simulation ---------- */
-
   function rechnen() {
     zeigerKraft();
 
@@ -235,7 +218,7 @@
       const p = leine.pts;
       const n = leine.n;
       for (let i = 0; i < n; i++) {
-        // Enden sind fest verankert (wie an der Beckenwand)
+
         if (i === 0 || i === n - 1) { p[i].y = 0; p[i].v = 0; continue; }
         const beschleunigung = KOPPLUNG * (p[i - 1].y + p[i + 1].y - 2 * p[i].y) - RUECKSTELLUNG * p[i].y;
         p[i].v = (p[i].v + beschleunigung) * DAEMPFUNG;
@@ -250,10 +233,6 @@
     });
   }
 
-  /* ---------- Zeichnen ---------- */
-
-  // Wettkampf-Leinen sind überwiegend blau, mit weissen Körpern als Taktung
-  // und einer kurzen roten Markierung wie bei der 15-Meter-Marke.
   function farbe(i, n) {
     const anteil = i / (n - 1);
     if (Math.abs(anteil - 0.12) < 0.035 || Math.abs(anteil - 0.88) < 0.035) return "#d8443c";
@@ -267,7 +246,6 @@
 
     ctx.clearRect(0, 0, pool.breite, pool.hoehe);
 
-    // Ringwellen vom Klick
     pool.ringe.forEach(ring => {
       ctx.beginPath();
       ctx.arc(ring.x, ring.y, ring.r, 0, TAU);
@@ -279,7 +257,6 @@
     pool.leinen.forEach(leine => {
       const schritt = pool.breite / (leine.n - 1);
 
-      // Schatten der Leine auf dem Beckenboden
       ctx.beginPath();
       for (let i = 0; i < leine.n; i++) {
         const x = i * schritt;
@@ -290,7 +267,6 @@
       ctx.lineWidth = 9;
       ctx.stroke();
 
-      // Stahlseil
       ctx.beginPath();
       for (let i = 0; i < leine.n; i++) {
         const x = i * schritt;
@@ -301,8 +277,6 @@
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Schwimmkörper: vorgezeichnete Sprites, nur noch kopieren.
-      // Die Drehphase wandert mit der Zeit – die Körper drehen sich im Wasser.
       for (let i = 0; i < leine.n; i++) {
         const x = i * schritt;
         const y = leine.basisY + leine.pts[i].y;

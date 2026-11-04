@@ -1,8 +1,3 @@
-// Rendert die Inhalte aus den Daten-Dateien (data/*.js) in die HTML-Struktur.
-// Die Daten liegen als globale Objekte vor: CONTENT, RESULTATE, SPONSOREN, GALERIE.
-// Bewusst als <script>-Einbindung statt fetch(), damit die Seite auch lokal
-// per Doppelklick auf index.html funktioniert.
-
 function formatDatum(isoDatum) {
   if (!isoDatum) return "";
   const parts = String(isoDatum).split("-");
@@ -28,8 +23,6 @@ function setText(id, value) {
   const node = document.getElementById(id);
   if (node) node.textContent = value || "";
 }
-
-/* ---------- Home / Hero ---------- */
 
 function renderHero() {
   const { meta } = CONTENT;
@@ -63,8 +56,6 @@ function renderUeberblick() {
   });
 }
 
-/* ---------- Über mich / Sport ---------- */
-
 function renderUeberMich() {
   setText("ueber-mich-text", CONTENT.ueberMich.text);
 
@@ -82,10 +73,6 @@ function renderRettungsschwimmsport() {
   setText("rettungsschwimmsport-text", CONTENT.rettungsschwimmsport.text);
 }
 
-/* ---------- Resultate: Pool -> Beach/Ocean -> Erfolge ---------- */
-
-// Erkennt eine Platzierung am Anfang eines Textes ("3. Platz, Beach Cup").
-// Für die Podestfarben in der Beach-Tabelle.
 function platzAusText(text) {
   const treffer = /^\s*(\d+)\s*\./.exec(String(text || ""));
   return treffer ? Number(treffer[1]) : null;
@@ -160,38 +147,31 @@ function renderResultate() {
   });
 }
 
-/* ---------- Sponsoren ---------- */
-
 function renderSponsoren() {
-  const container = document.getElementById("sponsoren-kategorien");
+  const container = document.getElementById("sponsoren-liste");
   container.innerHTML = "";
 
-  (SPONSOREN.kategorien || []).forEach(kategorie => {
-    const block = el("div", { class: "sponsor-kategorie reveal" }, [
-      el("h3", { text: kategorie.titel }),
-      kategorie.text ? el("p", { class: "block-text", text: kategorie.text }) : null
-    ]);
+  const einleitung = document.getElementById("sponsoren-text");
+  if (SPONSOREN.text) {
+    einleitung.textContent = SPONSOREN.text;
+  } else {
+    einleitung.remove();
+  }
 
-    const liste = el("div", { class: "sponsoren-liste" });
-    (kategorie.sponsoren || []).forEach(s => {
-      const inhalt = [
-        el("span", { class: "sponsor-logo" }, [
-          el("img", { src: s.logo, alt: s.name, loading: "lazy" })
-        ]),
-        el("span", { class: "sponsor-name", text: s.name }),
-        s.beschreibung ? el("p", { class: "sponsor-text", text: s.beschreibung }) : null
-      ];
+  (SPONSOREN.sponsoren || []).forEach(s => {
+    const inhalt = [
+      el("span", { class: "sponsor-logo" }, [
+        el("img", { src: s.logo, alt: s.name, loading: "lazy" })
+      ]),
+      el("span", { class: "sponsor-name", text: s.name }),
+      s.beschreibung ? el("p", { class: "sponsor-text", text: s.beschreibung }) : null
+    ];
 
-      // Mit Link, falls eine URL hinterlegt ist – sonst als einfache Karte
-      const karte = s.url
-        ? el("a", { class: "sponsor-item", href: s.url, target: "_blank", rel: "noopener" }, inhalt)
-        : el("div", { class: "sponsor-item" }, inhalt);
+    const karte = s.url
+      ? el("a", { class: "sponsor-item reveal", href: s.url, target: "_blank", rel: "noopener" }, inhalt)
+      : el("div", { class: "sponsor-item reveal" }, inhalt);
 
-      liste.appendChild(karte);
-    });
-
-    block.appendChild(liste);
-    container.appendChild(block);
+    container.appendChild(karte);
   });
 
   const cta = SPONSOREN.cta || {};
@@ -211,8 +191,6 @@ function renderSponsoren() {
     ctaBox.remove();
   }
 }
-
-/* ---------- Galerie ---------- */
 
 function renderGalerie() {
   const grid = document.getElementById("galerie-bilder");
@@ -236,15 +214,11 @@ function renderGalerie() {
   }
 }
 
-/* ---------- Kontakt ---------- */
-
 function renderKontakt() {
   const { kontakt } = CONTENT;
   const liste = document.getElementById("kontakt-liste");
   liste.innerHTML = "";
 
-  // Nur verlinken, wenn der Wert wirklich wie eine Adresse aussieht –
-  // sonst bleiben Platzhalter als reiner Text stehen.
   const eintraege = [
     ["E-Mail", kontakt.email, kontakt.email && kontakt.email.includes("@") ? `mailto:${kontakt.email}` : null],
     ["Telefon", kontakt.telefon, kontakt.telefon && /\d/.test(kontakt.telefon) ? `tel:${String(kontakt.telefon).replace(/\s/g, "")}` : null],
@@ -265,16 +239,13 @@ function renderKontakt() {
     } else {
       dd.textContent = wert;
     }
-    // Bezeichnung und Wert als Paar gruppieren, damit sie im Raster
-    // untereinander statt nebeneinander stehen
+
     liste.appendChild(el("div", { class: "kontakt-item" }, [
       el("dt", { text: label }),
       dd
     ]));
   });
 }
-
-/* ---------- Navigation / Kopfzeile ---------- */
 
 function setupNav() {
   const toggle = document.getElementById("nav-toggle");
@@ -301,7 +272,25 @@ function setupNav() {
   onScroll();
 }
 
-function init() {
+let CONTENT = null;
+let RESULTATE = null;
+let SPONSOREN = null;
+let GALERIE = null;
+
+async function ladeDaten() {
+  const [content, resultate, sponsoren, galerie] = await Promise.all([
+    fetch("data/content.json").then(r => r.json()),
+    fetch("data/resultate.json").then(r => r.json()),
+    fetch("data/sponsoren.json").then(r => r.json()),
+    fetch("data/galerie.json").then(r => r.json())
+  ]);
+  CONTENT = content;
+  RESULTATE = resultate;
+  SPONSOREN = sponsoren;
+  GALERIE = galerie;
+}
+
+function aufbauen() {
   renderHero();
   renderUeberblick();
   renderUeberMich();
@@ -310,8 +299,30 @@ function init() {
   renderSponsoren();
   renderGalerie();
   renderKontakt();
-  setupNav();
-  setText("jahr", String(new Date().getFullYear()));
 }
 
-document.addEventListener("DOMContentLoaded", init);
+async function init() {
+  setupNav();
+  setText("jahr", String(new Date().getFullYear()));
+
+  try {
+    await ladeDaten();
+    aufbauen();
+  } catch (fehler) {
+    console.error(
+      "Inhalte konnten nicht geladen werden. Beim Öffnen per Doppelklick ist das " +
+      "normal – die Seite braucht einen Server (siehe README).", fehler
+    );
+
+    document.documentElement.removeAttribute("data-reveal-ready");
+  }
+}
+
+window.LinoInhalteBereit = new Promise(resolve => {
+  const starten = () => init().finally(resolve);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", starten);
+  } else {
+    starten();
+  }
+});

@@ -1,9 +1,3 @@
-/* =========================================================
-   DESIGN "MEER" (ocean)
-   Tiefsee-Look: animierte 3D-Wasseroberfläche im Hero (WebGL,
-   assets/js/hero-ocean.js), Glaskarten, Lichtreflexe, Luftblasen.
-   ========================================================= */
-
 :root {
   --color-bg: #04141f;
   --color-bg-alt: #061d2c;
@@ -11,7 +5,7 @@
   --color-text: #cfe3f1;
   --color-muted: #8ba7bd;
   --color-accent: #38bdf8;
-  /* In diesem dunklen Design werden Überschriften hell statt dunkel */
+
   --color-accent-dark: #eaf6ff;
   --color-border: rgba(255, 255, 255, 0.12);
   --color-on-dark: #ffffff;
@@ -31,10 +25,6 @@ body {
   color: var(--color-text);
 }
 
-/* Inhalt über die Luftblasen-Ebene heben.
-   ACHTUNG: .site-header hier NICHT aufführen – das würde das
-   position: fixed aus base.css überschreiben, die Navigation würde
-   wegscrollen und der Hero um die Kopfzeilenhöhe verrutschen. */
 main, .site-footer { position: relative; z-index: 1; }
 
 .section-alt {
@@ -42,7 +32,6 @@ main, .site-footer { position: relative; z-index: 1; }
   border-block: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Luftblasen-Ebene (wird von premium.js eingefügt) */
 .bubble-layer {
   position: fixed;
   inset: 0;
@@ -55,8 +44,7 @@ main, .site-footer { position: relative; z-index: 1; }
   position: absolute;
   bottom: -60px;
   border-radius: 50%;
-  /* "screen" sorgt dafür, dass Blasen den Hintergrund nur aufhellen –
-     sonst wirken sie wie dunkle Kugeln. */
+
   mix-blend-mode: screen;
   opacity: 0.5;
   background:
@@ -72,8 +60,6 @@ main, .site-footer { position: relative; z-index: 1; }
   90%  { opacity: 0.5; }
   100% { transform: translate3d(-14px, -105vh, 0) scale(1.08); opacity: 0; }
 }
-
-/* ---------- Header ---------- */
 
 .site-header {
   background: transparent;
@@ -123,14 +109,11 @@ main, .site-footer { position: relative; z-index: 1; }
   .main-nav ul li + li { border-top: 1px solid rgba(255, 255, 255, 0.07); }
 }
 
-/* ---------- Hero ---------- */
-
 .hero {
   min-height: 100svh;
   background: #031019;
 }
 
-/* Fallback, falls WebGL nicht verfügbar ist */
 .hero-bg {
   background: linear-gradient(175deg, #051f31 0%, #073b55 45%, #0a5f80 100%);
 }
@@ -176,7 +159,6 @@ main, .site-footer { position: relative; z-index: 1; }
   50%      { transform: rotate(45deg) translate(4px, 4px); }
 }
 
-/* Animierte Wellenkante unter dem Hero */
 .hero-wave {
   height: clamp(70px, 10vw, 150px);
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath d='M0 70 C 180 120 300 24 480 62 C 660 100 780 20 960 58 C 1140 96 1260 32 1440 74 L1440 140 L0 140 Z' fill='%2304141f'/%3E%3C/svg%3E") repeat-x bottom / 1440px 100%;
@@ -198,8 +180,6 @@ main, .site-footer { position: relative; z-index: 1; }
   to   { background-position-x: -1440px; }
 }
 
-/* ---------- Überschriften / Kicker ---------- */
-
 .section-kicker {
   color: #7dd3fc;
   text-shadow: 0 0 22px rgba(56, 189, 248, 0.45);
@@ -217,8 +197,6 @@ main, .site-footer { position: relative; z-index: 1; }
 @keyframes shimmer {
   to { background-position: 220% center; }
 }
-
-/* ---------- Karten / Glas ---------- */
 
 .card,
 .erfolge-liste li,
@@ -249,8 +227,6 @@ main, .site-footer { position: relative; z-index: 1; }
 .split-media img {
   box-shadow: 0 30px 70px rgba(0, 8, 16, 0.55);
 }
-
-/* ---------- Resultate ---------- */
 
 .table-wrap {
   background: rgba(255, 255, 255, 0.04);
@@ -293,9 +269,6 @@ main, .site-footer { position: relative; z-index: 1; }
 
 .erfolg-titel { color: #ffffff; }
 
-/* ---------- Sponsoren ---------- */
-
-/* Sponsorlogos sind meist dunkel – helle Platte dahinter hält sie lesbar */
 .sponsor-logo {
   background: #ffffff;
   border-radius: var(--radius);
@@ -307,7 +280,6 @@ main, .site-footer { position: relative; z-index: 1; }
   overflow: hidden;
 }
 
-/* Glanzstreifen beim Hover */
 .sponsor-item::after {
   content: "";
   position: absolute;
@@ -365,8 +337,6 @@ main, .site-footer { position: relative; z-index: 1; }
   box-shadow: 0 18px 46px rgba(56, 189, 248, 0.5);
 }
 
-/* ---------- Galerie ---------- */
-
 .galerie-grid figure {
   box-shadow: 0 18px 44px rgba(0, 8, 16, 0.45);
 }
@@ -389,20 +359,14 @@ main, .site-footer { position: relative; z-index: 1; }
   text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
 
-/* ---------- Kontakt ---------- */
-
 .kontakt-liste dd a { color: #ffffff; }
 .kontakt-liste dd a:hover { color: #7dd3fc; }
-
-/* ---------- Footer ---------- */
 
 .site-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.09);
   color: var(--color-muted);
   background: rgba(2, 10, 17, 0.6);
 }
-
-/* ---------- Lightbox (Galerie) ---------- */
 
 .lightbox {
   position: fixed;
@@ -460,8 +424,6 @@ main, .site-footer { position: relative; z-index: 1; }
   }
 }
 
-/* ---------- Ergänzungen: Bahnen-Motive & Anzeigetafel ---------- */
-
 :root {
   --rope-main: rgba(120, 190, 225, 0.55);
   --rope-accent: rgba(230, 120, 105, 0.75);
@@ -489,7 +451,6 @@ main, .site-footer { position: relative; z-index: 1; }
   --rail-chip-text: #dceaf5;
 }
 
-/* Lichtschleier, der langsam über die Seite zieht */
 body::after {
   content: "";
   position: fixed;
@@ -497,8 +458,7 @@ body::after {
   z-index: 0;
   pointer-events: none;
   opacity: 0.35;
-  /* Radiale Verläufe sind von sich aus weich – ein zusätzlicher
-     filter: blur() über den ganzen Bildschirm wäre nur teuer. */
+
   background:
     radial-gradient(38% 22% at 25% 30%, rgba(125, 211, 252, 0.16), transparent 70%),
     radial-gradient(30% 18% at 70% 60%, rgba(56, 189, 248, 0.13), transparent 70%);

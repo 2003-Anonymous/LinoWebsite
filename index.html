@@ -4,7 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lino Gautschi – Rettungsschwimmsport</title>
-  <meta name="description" content="Lino Gautschi – Rettungsschwimmsport: Resultate aus Pool und Beach/Ocean, Sponsoren, Galerie und Kontakt.">
+  <meta name="description" content="Lino Gautschi, Rettungsschwimmer aus der Schweiz: Resultate aus Pool und Beach/Ocean, Erfolge, Sponsoren, Galerie und Kontakt.">
+
+  <link rel="canonical" href="https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_CH">
+  <meta property="og:site_name" content="Lino Gautschi">
+  <meta property="og:title" content="Lino Gautschi – Rettungsschwimmsport">
+  <meta property="og:description" content="Resultate aus Pool und Beach/Ocean, Erfolge, Sponsoren und Kontakt.">
+  <meta property="og:url" content="https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/">
+  <meta property="og:image" content="https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/assets/images/vorschau.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lino Gautschi",
+    "jobTitle": "Rettungsschwimmer",
+    "nationality": "CH",
+    "sport": "Rettungsschwimmsport",
+    "url": "https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/"
+  }
+  </script>
 
   <link rel="icon" href="assets/images/logo/logo-mark-dark.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,25 +40,16 @@
   <link rel="stylesheet" id="theme-css" href="assets/css/theme-ocean.css">
 
   <script>
-    // Das Design der Website ist "ocean" (Meer) – fest eingestellt.
-    //
-    // Das zweite Design ("pool", helles Becken) liegt weiterhin im Projekt
-    // und lässt sich mit ?design=pool in der Adresszeile anschauen. Auf der
-    // Seite selbst gibt es dafür bewusst keinen Umschalter mehr.
+
     (function () {
       var params = new URLSearchParams(location.search);
       var design = params.get("design") === "pool" ? "pool" : "ocean";
 
-      // Alte gespeicherte Design-Wahl entfernen – sonst würde bei jemandem,
-      // der früher "Becken" gewählt hat, weiterhin das falsche Design laden.
       try { localStorage.removeItem("lino-design"); } catch (e) {}
 
       document.documentElement.dataset.design = design;
       document.getElementById("theme-css").href = "assets/css/theme-" + design + ".css";
 
-      // Startzustand für die Einblend-Animationen. theme.js entfernt das
-      // Attribut wieder, falls die Skripte nicht laden – dann ist einfach
-      // alles sofort sichtbar statt dauerhaft unsichtbar.
       document.documentElement.setAttribute("data-reveal-ready", "");
     })();
   </script>
@@ -68,13 +84,13 @@
 
   <main>
 
-    <!-- HOME / HERO -->
     <section id="home" class="hero" data-rail-label="Start">
       <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
       <div class="hero-overlay" aria-hidden="true"></div>
 
       <div class="container hero-inner">
-        <h1 class="sr-only" id="hero-name-sr"></h1>
+
+        <h1 class="sr-only" id="hero-name-sr">Lino Gautschi – Rettungsschwimmsport</h1>
         <img class="hero-logo hero-logo--light" src="assets/images/logo/logo-full-light.svg" alt="Lino Gautschi">
         <img class="hero-logo hero-logo--dark" src="assets/images/logo/logo-full-dark.svg" alt="" aria-hidden="true">
         <p class="hero-tagline" id="hero-tagline"></p>
@@ -90,7 +106,6 @@
       <div class="hero-wave" aria-hidden="true"></div>
     </section>
 
-    <!-- ÜBERBLICK: Zitat, nächste Wettkämpfe, Bilder -->
     <section id="ueberblick" class="section section-overview" data-rail-label="Überblick">
       <div class="container">
         <blockquote class="zitat reveal" id="hero-zitat">
@@ -109,7 +124,6 @@
       </div>
     </section>
 
-    <!-- ÜBER MICH -->
     <section id="ueber-mich" class="section">
       <div class="container">
         <div class="section-head reveal">
@@ -127,7 +141,6 @@
       </div>
     </section>
 
-    <!-- RETTUNGSSCHWIMMSPORT -->
     <section id="rettungsschwimmsport" class="section section-alt">
       <div class="container">
         <div class="section-head reveal">
@@ -138,7 +151,6 @@
       </div>
     </section>
 
-    <!-- RESULTATE: Pool -> Beach/Ocean -> Erfolge -->
     <section id="resultate" class="section">
       <div class="container">
         <div class="section-head reveal">
@@ -188,7 +200,6 @@
       </div>
     </section>
 
-    <!-- SPONSOREN -->
     <section id="sponsoren" class="section section-alt">
       <div class="container">
         <div class="section-head reveal">
@@ -196,13 +207,13 @@
           <h2>Sponsoren</h2>
         </div>
 
-        <div id="sponsoren-kategorien"></div>
+        <p class="block-text reveal" id="sponsoren-text"></p>
+        <div id="sponsoren-liste" class="sponsoren-liste"></div>
 
         <div class="sponsor-cta reveal" id="sponsor-cta"></div>
       </div>
     </section>
 
-    <!-- GALERIE -->
     <section id="galerie" class="section">
       <div class="container">
         <div class="section-head reveal">
@@ -214,7 +225,6 @@
       </div>
     </section>
 
-    <!-- KONTAKT -->
     <section id="kontakt" class="section section-kontakt">
       <div class="container">
         <div class="section-head reveal">
@@ -234,10 +244,6 @@
     </div>
   </footer>
 
-  <script src="data/content.js"></script>
-  <script src="data/resultate.js"></script>
-  <script src="data/sponsoren.js"></script>
-  <script src="data/galerie.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/theme.js"></script>
 </body>

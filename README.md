@@ -1,39 +1,112 @@
 # Lino Website
 
-Website für Lino (Rettungsschwimmsport). Statische Seite ohne Build-Tools –
-funktioniert direkt im Browser, kann auf jedem einfachen Webhosting (oder
-GitHub Pages, Netlify etc.) abgelegt werden.
+Website für Lino Gautschi (Rettungsschwimmsport). Statische Seite ohne
+Build-Schritt. Die Inhalte liegen als JSON in `data/` und werden über einen
+Admin-Bereich auf der Seite selbst bearbeitet (Sveltia CMS).
+
+**Ablauf:** Lino bearbeitet unter `/admin/` → das CMS speichert nach GitHub →
+Vercel veröffentlicht automatisch → nach rund einer Minute ist es live.
+
+---
+
+## Für Lino: Inhalte bearbeiten
+
+1. **`https://DEINE-ADRESSE/admin/`** öffnen (am besten als Lesezeichen
+   speichern, auf dem Handy als Symbol auf dem Startbildschirm).
+2. Auf **"Mit GitHub anmelden"** klicken. Das ist nur beim ersten Mal nötig.
+3. Links einen Bereich wählen: *Startseite*, *Resultate*, *Sponsoren* oder
+   *Galerie*.
+4. Felder ausfüllen bzw. ändern. Bilder lassen sich direkt hochladen –
+   auch vom Handy aus der Fotomediathek.
+5. Oben auf **"Speichern"**. Nach etwa einer Minute ist die Änderung online.
+
+Nicht veränderbar sind Design, Aufbau und Programmcode – es erscheinen nur
+die Felder, die in `admin/config.yml` festgelegt sind. Jede Änderung wird
+zudem als eigene Version gespeichert und lässt sich rückgängig machen.
+
+---
+
+## Für den Betreuer: Einrichtung
+
+Einmalig, danach läuft es von selbst.
+
+### 1. Vercel mit dem GitHub-Repo verbinden
+
+Auf [vercel.com](https://vercel.com) ein neues Projekt aus dem Repo
+`2003-Anonymous/LinoWebsite` anlegen. Framework: **Other**, kein Build-Befehl.
+Vercel erkennt die statischen Dateien und die Funktionen im Ordner `api/`
+automatisch.
+
+### 2. GitHub-OAuth-App anlegen
+
+GitHub → *Settings* → *Developer settings* → *OAuth Apps* → *New OAuth App*:
+
+| Feld | Wert |
+|---|---|
+| Application name | Lino Website Admin |
+| Homepage URL | `https://DEINE-ADRESSE` |
+| Authorization callback URL | `https://DEINE-ADRESSE/api/callback` |
+
+Danach *Client ID* notieren und ein *Client Secret* erzeugen.
+
+### 3. Zugangsdaten in Vercel hinterlegen
+
+Vercel → Projekt → *Settings* → *Environment Variables*:
+
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+
+Danach einmal neu veröffentlichen (*Redeploy*), damit die Werte greifen.
+
+### 4. Adresse in der CMS-Konfiguration eintragen
+
+In `admin/config.yml` die Zeile `base_url:` auf die echte Adresse ändern:
+
+```yaml
+base_url: https://lino-website.vercel.app
+```
+
+### 5. Lino Zugriff geben
+
+GitHub-Repo → *Settings* → *Collaborators* → Lino einladen (er braucht ein
+kostenloses GitHub-Konto). Ohne diesen Schritt kann er sich zwar anmelden,
+aber nichts speichern.
+
+---
 
 ## Struktur
 
 ```
-index.html              Die eigentliche Website (eine Seite mit Sprungmarken)
-admin/index.html         Admin-Bereich zum Bearbeiten der Inhalte
-data/                    Alle Texte, Resultate, Sponsoren, Bildverweise
-  content.js              Home, Über mich, Rettungsschwimmsport, Kontakt
-  resultate.js             Pool, Beach/Ocean, Erfolge
-  sponsoren.js              Sponsor-Kategorien + Abschluss-Text
-  galerie.js                 Instagram-Link, Galerie-Bilder
+index.html               Die Website (eine Seite mit Sprungmarken)
+admin/
+  index.html              Admin-Bereich (lädt Sveltia CMS)
+  config.yml               Welche Felder bearbeitbar sind
+api/
+  auth.js                 Anmeldung Schritt 1 (Weiterleitung zu GitHub)
+  callback.js              Anmeldung Schritt 2 (Token abholen)
+data/                    Die Inhalte, vom CMS bearbeitet
+  content.json            Startseite, Über mich, Rettungsschwimmsport, Kontakt
+  resultate.json           Pool, Beach/Ocean, Erfolge
+  sponsoren.json            Sponsorenliste + Abschluss-Text
+  galerie.json               Instagram-Link, Galerie-Bilder
 assets/
   css/
-    base.css               Gemeinsames Grundgerüst (Layout, Struktur)
-    theme-ocean.css         Design "Meer" (aktiv)
-    theme-pool.css           Design "Becken" (aufgehoben, siehe unten)
-    admin.css                 Admin-Bereich
+    base.css              Gemeinsames Grundgerüst (Layout, Struktur)
+    theme-ocean.css        Design "Meer" (aktiv)
+    theme-pool.css          Design "Becken" (aufgehoben, siehe unten)
   js/
-    main.js                Inhalte in die Seite rendern
-    theme.js                lädt Design, Effekte und Hero
-    effects.js               Einblenden, Luftblasen, Lightbox, Tiefen-Leiste
-    hero-ocean.js             Wasseroberfläche in 3D (WebGL-Shader)
-    hero-pool.js               Bahnenleinen mit Wellenphysik (Canvas)
-    admin.js / admin-auth.js    Admin-Bereich + Passwortschutz
+    main.js               Inhalte laden und in die Seite einsetzen
+    theme.js               lädt Design, Effekte und Hero
+    effects.js              Einblenden, Luftblasen, Lightbox, Tiefen-Leiste
+    hero-ocean.js            Wasseroberfläche in 3D (WebGL-Shader)
+    hero-pool.js              Bahnenleinen mit Wellenphysik (Canvas)
   images/
-    logo/                  Logo als Vektor, 4 Varianten (siehe unten)
-    hero/                   Bilder für die Startseite
-    about/                  Bild(er) für "Über mich"
-    gallery/                Galerie-Bilder
-    sponsors/               Sponsoren-Logos
+    logo/                 Logo als Vektor, 4 Varianten (siehe unten)
+    hero/ about/ gallery/ sponsors/    Platzhalterbilder
+    uploads/              Hierhin lädt das CMS neue Bilder
 ```
+
+---
 
 ## Das Design
 
@@ -58,9 +131,8 @@ Das helle Becken-Design (Bahnenleinen mit Wellenphysik, Kacheln, Kontakt als
 Startblock) ist **nicht gelöscht**, nur nicht mehr aktiv. Es liegt in
 `assets/css/theme-pool.css` und `assets/js/hero-pool.js`.
 
-Anschauen lässt es sich mit `?design=pool` in der Adresszeile, also z.B.
-`https://…netlify.app/?design=pool`. Auf der Seite selbst gibt es dafür
-bewusst keinen Umschalter – normale Besucher sehen immer "Meer".
+Anschauen lässt es sich mit `?design=pool` in der Adresszeile. Auf der Seite
+selbst gibt es dafür bewusst keinen Umschalter – Besucher sehen immer "Meer".
 
 Soll später dauerhaft gewechselt werden: in `index.html` im Inline-Skript im
 `<head>` steht die Zeile, die `"ocean"` festlegt – dort `"pool"` eintragen.
@@ -75,85 +147,55 @@ Varianten:
 
 "dark" ist für helle Hintergründe, "light" für dunkle.
 
-## Inhalte selbst bearbeiten (ohne Programmieren)
+---
 
-1. `admin/index.html` im Browser öffnen (am besten **Chrome** oder **Edge**,
-   damit direktes Speichern funktioniert).
-2. Oben auf **"Projektordner verbinden"** klicken und den `LinoWebsite`-Hauptordner
-   auswählen (den Ordner, in dem `index.html` liegt).
-3. Texte, Resultate, Sponsoren eintragen/ändern. Bilder über die Datei-Auswahl
-   bei den Bildfeldern hochladen – sie werden automatisch im richtigen
-   `assets/images/…`-Ordner gespeichert.
-4. Bei jeder Karte unten auf **"Speichern"** klicken (oder oben auf
-   **"Alles speichern"**).
-5. Über **"Seite ansehen"** die Änderungen direkt prüfen.
+## Technische Hinweise
 
-**Browser ohne Projektordner-Unterstützung** (z.B. Firefox, Safari): Der
-"Speichern"-Button lädt stattdessen die aktualisierte Datei herunter
-(z.B. `content.js`). Diese Datei muss dann von Hand in den Ordner `data/`
-kopiert werden (alte Datei überschreiben). Bilder müssen dort manuell in den
-passenden `assets/images/…`-Ordner kopiert werden; der Dateiname muss mit dem
-Namen im Textfeld übereinstimmen.
+Drei Dinge, die beim Weiterarbeiten leicht kaputtgehen – sie standen früher
+als Kommentare im Code:
 
-## Wer kann was verändern?
+**1. `.site-header` nicht in die `position`-Regeln der Theme-Dateien aufnehmen.**
+In `theme-ocean.css` hebt die Regel `main, .site-footer { position: relative }`
+den Inhalt über die Luftblasen-Ebene. Nimmt man `.site-header` dazu, überschreibt
+das `position: fixed` aus `base.css`: Die Navigation scrollt weg und der Hero
+verrutscht um die Höhe der Kopfzeile. Das wiederum verschiebt die Mausposition
+im Wasser-Effekt.
 
-Die veröffentlichte Website ist für Besucher **immer nur lesbar**. Das
-Admin-Panel speichert Änderungen ausschliesslich in den lokal ausgewählten
-Ordner im eigenen Browser (Punkt 2 oben) – es gibt keine Verbindung zu einem
-Server. Selbst wenn jemand `admin/index.html` auf der veröffentlichten Seite
-öffnet, kann er damit nicht die echte, für alle sichtbare Seite verändern.
+**2. Die Kamera in `hero-ocean.js` existiert zweimal.** Einmal im Shader
+(`ro`/`ta` in `main()`) und einmal in JavaScript (`screenToWater`). Beide
+müssen identisch sein, sonst sitzt der Maus-Effekt nicht mehr unter dem Cursor –
+in der Ferne wirkt sich schon ein kleiner Unterschied stark aus.
 
-Damit random Besucher den Admin-Bereich aber gar nicht erst sehen:
+**3. Das Einblenden braucht das Sicherheitsnetz in `effects.js`.**
+`IntersectionObserver` liefert seine Rückmeldungen zusammen mit dem Bildaufbau.
+Ist der Hauptthread ausgelastet (Wasser-Animation auf schwachem Gerät), bleiben
+sie aus – Inhalte mit `opacity: 0` wären dann dauerhaft unsichtbar. Deshalb
+prüfen zusätzlich ein Scroll-Ereignis und ein Timer die Sichtbarkeit.
+Grundregel: Sichtbarkeit von Inhalten nie allein vom `IntersectionObserver`
+oder einer CSS-Überblendung abhängig machen.
 
-- `admin/index.html` ist zusätzlich mit einem **Passwort** gesperrt
-  (`assets/js/admin-auth.js`). Standardpasswort: `lino2026` – bitte ändern!
-  Dazu im Browser mit F12 die Konsole öffnen und ausführen:
-  ```js
-  crypto.subtle.digest("SHA-256", new TextEncoder().encode("neuesPasswort"))
-    .then(buf => console.log([...new Uint8Array(buf)]
-      .map(b => b.toString(16).padStart(2, "0")).join("")));
-  ```
-  Den ausgegebenen Hash in `assets/js/admin-auth.js` bei
-  `ADMIN_PASSWORD_HASH` einsetzen.
-- `robots.txt` und ein `noindex`-Meta-Tag verhindern, dass Suchmaschinen den
-  Admin-Bereich auflisten.
-- Wichtig: Das Passwort ist ein einfacher Schutz vor zufälligen Besuchern,
-  keine echte Verschlüsselung – wer sich mit Browser-Entwicklertools
-  auskennt, könnte ihn theoretisch umgehen. Das ist unkritisch, weil damit
-  ohnehin nichts an der echten Seite verändert werden kann (siehe oben).
+Ausserdem: Die CMS-Version in `admin/index.html` ist bewusst festgenagelt
+(`@sveltia/cms@0.236.0`). Ein ungepinntes „latest" könnte den Editor jederzeit
+unangekündigt verändern.
 
-## Veröffentlichen (Netlify, Drag & Drop)
+## Lokale Vorschau
 
-1. Auf [app.netlify.com](https://app.netlify.com) einen kostenlosen Account
-   erstellen (falls noch nicht vorhanden).
-2. Im Netlify-Dashboard auf **"Add new site" → "Deploy manually"**.
-3. Den ganzen `LinoWebsite`-Ordner (der Ordner mit `index.html` drin) per
-   Drag & Drop in das Upload-Feld ziehen. Netlify vergibt automatisch eine
-   Adresse wie `zufallsname.netlify.app` (kann später auf eine eigene Domain
-   umgestellt werden).
-4. Fertig – die Seite ist live.
+Ein Doppelklick auf `index.html` reicht **nicht** mehr: Die Seite lädt ihre
+Inhalte aus `data/*.json`, und Browser verbieten das bei lokal geöffneten
+Dateien. Stattdessen im Projektordner einen kleinen Server starten:
 
-**Wichtig:** Wenn Lino danach im Admin-Panel etwas ändert, betrifft das nur
-seinen lokalen Ordner. Damit die Änderungen auch online sichtbar werden, muss
-er denselben Ordner danach erneut per Drag & Drop auf dieselbe Netlify-Seite
-hochladen (Netlify → Site → "Deploys" → Ordner erneut hineinziehen). Das
-überschreibt die alte Version mit der neuen.
+```bash
+npx serve
+```
 
-## Direkt in den Daten-Dateien bearbeiten (Alternative)
+Dann die angezeigte Adresse öffnen (meist `http://localhost:3000`).
 
-Wer sich das zutraut, kann die Dateien in `data/` auch direkt mit einem
-Texteditor öffnen und anpassen – es ist normales, lesbares JavaScript
-(Listen mit `{ ... }`-Einträgen). Wichtig: Anführungszeichen und Kommas nicht
-verlieren, sonst funktioniert die Seite nicht mehr.
+---
 
-## Seite lokal testen
-
-`index.html` kann direkt per Doppelklick geöffnet werden – die Seite lädt
-ihre Inhalte über normale `<script>`-Einbindungen (keine Server-Abhängigkeit).
-
-## Noch offen (nächste Schritte)
+## Noch offen
 
 - Platzhalterbilder durch echte Fotos ersetzen (Hero, Über mich, Galerie)
-- Echte Sponsoren-Logos statt der grauen Platzhalter einsetzen
-- Kontaktdaten ausfüllen (aktuell stehen dort noch Platzhalter)
-- Admin-Passwort ändern (siehe oben, Standard ist `lino2026`)
+- Echte Sponsoren-Logos statt der grauen Platzhalter
+- Kontaktdaten ausfüllen (stehen noch auf Platzhaltern)
+- Hinweis an Lino: Fotos nicht in voller Kameraauflösung hochladen –
+  sie bleiben dauerhaft im Repo
