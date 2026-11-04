@@ -2,7 +2,7 @@ backend:
   name: github
   repo: 2003-Anonymous/LinoWebsite
   branch: main
-  base_url: https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app
+  base_url: https://www.lino-gautschi.ch
   auth_endpoint: api/auth
 
 media_folder: assets/images/uploads

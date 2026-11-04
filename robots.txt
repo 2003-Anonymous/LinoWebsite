@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: https://BITTE-HIER-DIE-ADRESSE-EINTRAGEN.vercel.app/sitemap.xml
+Sitemap: https://www.lino-gautschi.ch/sitemap.xml
