@@ -5,19 +5,25 @@
       "name": "Sensolar",
       "logo": "/assets/images/uploads/97842.jpg",
       "url": "https://sensolar.ch/",
-      "beschreibung": "Der Sonnenschutz von SENSOLAR ist perfekt für mich im Sport. Schnel leinziehend und danach nicht rutschig. Die weiteren Produnte helfen auch bei der Regeneration.\n20% mit Code: Linogautschi"
+      "beschreibung": "Der Sonnenschutz von SENSOLAR ist perfekt für mich im Sport. Schnell einziehend und danach nicht rutschig. Die weiteren Produnte helfen auch bei der Regeneration.\n20% mit Code: Linogautschi"
     },
     {
-      "name": "Beispiel Sponsor AG",
-      "logo": "assets/images/sponsors/placeholder.svg",
-      "url": "https://example.com",
-      "beschreibung": "Kurzer Text zum Sponsor – was er beisteuert und warum die Zusammenarbeit passt."
+      "name": "Catrade AG",
+      "logo": "/assets/images/uploads/97843.png",
+      "url": "https://catrade.ch/",
+      "beschreibung": "Die Catrade unterstützt mich mit jegendlichen Sportmarken. Hauptsächlich Speedo."
     },
     {
-      "name": "Zweiter Beispiel-Sponsor",
-      "logo": "assets/images/sponsors/placeholder.svg",
-      "url": "",
-      "beschreibung": "Beispiel-Eintrag – kann im Admin-Bereich jederzeit ersetzt oder gelöscht werden."
+      "name": "Hirt AG",
+      "logo": "/assets/images/uploads/97844.png",
+      "url": "https://hirtag.ch/",
+      "beschreibung": "Hirt AG bietet mir die perfekten Sonnenbrillen für Lifestyle und Wettkampf"
+    },
+    {
+      "name": "Fläcken Garage",
+      "logo": "/assets/images/uploads/97845.png",
+      "url": "https://www.xn--flcke-garage-hcb.ch/",
+      "beschreibung": "Die Fläcken Garage untersützt mich tatkeäftig bei meinem Auto und Reisen."
     }
   ],
   "cta": {
