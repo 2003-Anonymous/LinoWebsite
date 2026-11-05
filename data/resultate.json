@@ -20,24 +20,74 @@
         "letztesResultat": {
           "zeit": "00:59.57",
           "wettkampf": "ÖM 2026",
-          "datum": "2026-08-08"
+          "datum": "2026-08-07"
+        }
+      },
+      {
+        "name": "100m Rescue Medley",
+        "allTimePB": "01:16.24",
+        "saisonPB": "01:16.24",
+        "letztesResultat": {
+          "zeit": "01:17.63",
+          "wettkampf": "Orange Cup 2026",
+          "datum": "2026-06-28"
+        }
+      },
+      {
+        "name": "200m Super Lifesaver",
+        "allTimePB": "02:36.52",
+        "saisonPB": "02:36.52",
+        "letztesResultat": {
+          "zeit": "02:40.78",
+          "wettkampf": "ÖM 2026",
+          "datum": "2026-08-07"
+        }
+      },
+      {
+        "name": "50m Manakin Carry",
+        "allTimePB": "00:36.13",
+        "saisonPB": "00:36.13",
+        "letztesResultat": {
+          "zeit": "00:38.22 (ohne Startblock)",
+          "wettkampf": "ÖM 2026",
+          "datum": "2026-08-07"
+        }
+      },
+      {
+        "name": "200m Obstacle Swim",
+        "allTimePB": "02:26.30",
+        "saisonPB": "02:26.30",
+        "letztesResultat": {
+          "zeit": "02:27.67 (Final)",
+          "wettkampf": "French Rescue 2026",
+          "datum": "2026-05-15"
         }
       }
     ]
   },
   "beach": {
     "titel": "Beach / Ocean",
-    "text": "Am Strand und im offenen Wasser zählt die Rangierung – deshalb hier das beste und das letzte Resultat statt Bestzeiten.",
+    "text": "Am Strand und im offenen Wasser zählt die Rangierung – deshalb hier das beste und das letzte Resultat statt Bestzeiten. Das Beste Resultat wird auch nach Schwierigkeit gewichtet, denn nicht jeder WK hat dasselbe Niveau und dies ist auch von Jahr zu Jahr am selben WK verschieden.",
     "disziplinen": [
       {
         "name": "Beach Flags",
-        "bestesResultat": "1. Platz, Swiss Beach Championships 2025",
-        "letztesResultat": "3. Platz, Beach Cup 2026"
+        "bestesResultat": "7. Platz, Victorinox Cup 2025",
+        "letztesResultat": "11. Platz, Yvonand 2026"
+      },
+      {
+        "name": "Beach Sprint",
+        "bestesResultat": "7. Platz, Yvonand 2026",
+        "letztesResultat": "10. Platz Yvonand 2026"
       },
       {
         "name": "Surf Race",
-        "bestesResultat": "2. Platz, Swiss Beach Championships 2025",
-        "letztesResultat": "5. Platz, Beach Cup 2026"
+        "bestesResultat": "28. Platz Filcow/ 8. Platz Victorinox Cup 2026 (National)",
+        "letztesResultat": "13. Platz ÖM 2026"
+      },
+      {
+        "name": "Board Race",
+        "bestesResultat": "6. Platz ÖM 2026",
+        "letztesResultat": "SF 11. Platz Yvonand 2026"
       },
       {
         "name": "Ocean Man",
