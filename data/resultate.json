@@ -1,12 +1,12 @@
 {
   "pool": {
     "titel": "Pool",
-    "text": "Zeiten aus dem Hallenbad – mit persönlicher Bestzeit, Saisonbestzeit und dem letzten Wettkampfresultat.",
+    "text": "Anbei sind alle Einzeldisziplinen des Rettungsschwimmsports aufgelistet, mit meiner all time PB, Saisonbestzeit und letztes Resultat. Die Staffelbestzeiten sind nicht aufgeführt, da dies zu viel wäre.",
     "disziplinen": [
       {
-        "name": "100m Rettungsschwimmen mit Flossen",
-        "allTimePB": "0:58.20",
-        "saisonPB": "0:59.10",
+        "name": "100m Manakin Carry with Fins",
+        "allTimePB": "0:53.57",
+        "saisonPB": "0:53.57",
         "letztesResultat": {
           "zeit": "0:59.10",
           "wettkampf": "Schweizermeisterschaft",
