@@ -1,13 +1,33 @@
 {
-  "instagramUrl": "https://instagram.com/lino",
+  "instagramUrl": "https://www.instagram.com/gutschi.06?vrfl=N3hyMWJzemN1aG53",
   "bilder": [
     {
-      "src": "assets/images/gallery/bild-1.svg",
-      "bildtext": "Wettkampf 2026"
+      "src": "/assets/images/uploads/88858.jpg",
+      "bildtext": "Yvonand"
     },
     {
-      "src": "assets/images/gallery/bild-2.svg",
-      "bildtext": "Training"
+      "src": "/assets/images/uploads/74454.jpg",
+      "bildtext": "Orange Cup"
+    },
+    {
+      "src": "/assets/images/uploads/75303.jpg",
+      "bildtext": "Filcow"
+    },
+    {
+      "src": "/assets/images/uploads/66756.jpg",
+      "bildtext": "French Rescue"
+    },
+    {
+      "src": "/assets/images/uploads/88819.jpg",
+      "bildtext": "Yvonand"
+    },
+    {
+      "src": "/assets/images/uploads/65559.jpg",
+      "bildtext": "STC"
+    },
+    {
+      "src": "/assets/images/uploads/63442.jpg",
+      "bildtext": "Speedlifesaving"
     }
   ]
 }
