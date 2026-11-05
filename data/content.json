@@ -9,23 +9,23 @@
       "assets/images/hero/hero-2.svg",
       "assets/images/hero/hero-3.svg"
     ],
-    "zitat": "Der Wille zu gewinnen ist nichts ohne den Willen, sich vorzubereiten.",
+    "zitat": "",
     "zitatAutor": "Lino Gautschi",
     "naechsteWettkaempfe": [
       {
-        "name": "Wettkampf",
-        "ort": "Aarau",
-        "datum": "2026-09-12"
+        "name": "Interclub Weltmeisterschaft",
+        "ort": "Kapstadt Süd Afrika",
+        "datum": "2026-12-07"
       },
       {
-        "name": "SM",
-        "ort": "Menziken",
-        "datum": "2026-10-03"
+        "name": "French Meeting International",
+        "ort": "Paris",
+        "datum": "2027-01-29"
       }
     ]
   },
   "ueberMich": {
-    "text": "Ich schwimme schon seit ich 5 Jahre alt bin.",
+    "text": "Ich bin seit ich laufen kann auch immeer im Wasser unterwegs. Im Jahre 2024 stoss uch dann auf den Rettungsschwimmsport und habe das mal versucht. Seither gebe ich alles um an die Spitze in diesem Sport zu kommen. Mein Weg ist noch lange, aber er hat auch erst begonnen.",
     "bild": "assets/images/about/portrait.svg"
   },
   "rettungsschwimmsport": {
