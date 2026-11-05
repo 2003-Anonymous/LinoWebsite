@@ -88,24 +88,19 @@
         "name": "Board Race",
         "bestesResultat": "6. Platz ÖM 2026",
         "letztesResultat": "SF 11. Platz Yvonand 2026"
-      },
-      {
-        "name": "Ocean Man",
-        "bestesResultat": "4. Platz, Ocean Challenge 2025",
-        "letztesResultat": "6. Platz, Ocean Challenge 2026"
       }
     ]
   },
   "erfolge": [
     {
       "titel": "Top 10 Finish",
-      "wettkampf": "Europameisterschaft",
-      "datum": "2025-07-20"
+      "wettkampf": "Swiss Team Challenge 2026",
+      "datum": "2026-05-03"
     },
     {
-      "titel": "B-Final",
-      "wettkampf": "Weltmeisterschaft",
-      "datum": "2024-08-10"
+      "titel": "🥇 Manakin Tow with Fins",
+      "wettkampf": "ÖM 2026",
+      "datum": "2026-08-07"
     }
   ]
 }
