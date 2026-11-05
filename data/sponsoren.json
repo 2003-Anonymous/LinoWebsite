@@ -1,34 +1,34 @@
 {
-  "text": "Ohne diese Partner wäre mein Weg im Rettungsschwimmsport nicht möglich – herzlichen Dank für die Unterstützung.",
+  "text": "Ohne diese Partner wäre mein Weg im Rettungsschwimmsport viel schwieriger – herzlichen Dank für die Unterstützung und das Vertrauen.",
   "sponsoren": [
     {
       "name": "Sensolar",
       "logo": "/assets/images/uploads/97842.jpg",
       "url": "https://sensolar.ch/",
-      "beschreibung": "Der Sonnenschutz von SENSOLAR ist perfekt für mich im Sport. Schnell einziehend und danach nicht rutschig. Die weiteren Produnte helfen auch bei der Regeneration.\n20% mit Code: Linogautschi"
+      "beschreibung": "Der Sonnenschutz von SENSOLAR zieht schnell ein und hinterlässt auf meiner Haut kein rutschiges Gefühl – genau das, was ich beim Sport brauche. Weitere Produkte ergänzen meine Regeneration nach Training und Wettkampf.\nMit dem Code «LINOGAUTSCHI» erhältst du 20% Rabatt."
     },
     {
       "name": "Catrade AG",
       "logo": "/assets/images/uploads/97843.png",
       "url": "https://catrade.ch/",
-      "beschreibung": "Die Catrade unterstützt mich mit jegendlichen Sportmarken. Hauptsächlich Speedo."
+      "beschreibung": "Catrade unterstützt mich mit Produkten verschiedener Sportmarken – allen voran Speedo. So bin ich für mein Training und meine Wettkämpfe bestens ausgerüstet."
     },
     {
       "name": "Hirt AG",
       "logo": "/assets/images/uploads/97844.png",
       "url": "https://hirtag.ch/",
-      "beschreibung": "Hirt AG bietet mir die perfekten Sonnenbrillen für Lifestyle und Wettkampf"
+      "beschreibung": "Ob im Alltag oder im Wettkampf: Hirt AG unterstützt mich mit den passenden Sonnenbrillen."
     },
     {
       "name": "Fläcke Garage",
       "logo": "/assets/images/uploads/97846.png",
       "url": "https://www.xn--flcke-garage-hcb.ch/",
-      "beschreibung": "Die Fläcke Garage untersützt mich tatkräftig bei meinem Auto und Reisen."
+      "beschreibung": "Die Fläcke Garage unterstützt mich rund um mein Auto und hilft mir, für die Fahrten zu Trainings und Wettkämpfen mobil zu bleiben."
     }
   ],
   "cta": {
     "titel": "Habe ich dein Interesse geweckt?",
-    "text": "Als Sponsor unterstützt du nicht nur meinen Weg im Rettungsschwimmsport – dein Logo erscheint auf dieser Website, auf meiner Wettkampfausrüstung und in meinen Social-Media-Beiträgen. Melde dich gerne für ein unverbindliches Gespräch oder für meine Sponsoring-Unterlagen.",
+    "text": "Als Sponsor wirst du Teil meines Weges im Rettungsschwimmsport. Im Gegenzug mache ich deine Marke sichtbar – auf dieser Website, auf meiner Wettkampfausrüstung und in meinen Social-Media-Beiträgen. Interesse an einer Zusammenarbeit? Melde dich gerne für ein unverbindliches Gespräch oder um meine Sponsoring-Unterlagen zu erhalten.",
     "buttonText": "Kontakt aufnehmen",
     "buttonLink": "#kontakt"
   }
