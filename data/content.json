@@ -21,6 +21,11 @@
         "name": "French Meeting International",
         "ort": "Paris",
         "datum": "2027-01-29"
+      },
+      {
+        "name": "SLS Innsbruck",
+        "ort": "Innsbruck",
+        "datum": "2027-02-06"
       }
     ]
   },
