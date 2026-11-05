@@ -5,22 +5,22 @@
     "disziplinen": [
       {
         "name": "100m Manakin Carry with Fins",
-        "allTimePB": "0:53.57",
-        "saisonPB": "0:53.57",
+        "allTimePB": "0:53.56",
+        "saisonPB": "0:53.56",
         "letztesResultat": {
-          "zeit": "0:59.10",
-          "wettkampf": "Schweizermeisterschaft",
-          "datum": "2026-06-14"
+          "zeit": "0:54.86",
+          "wettkampf": "Orange Cup 2026",
+          "datum": "2026-06-28"
         }
       },
       {
-        "name": "200m Hindernisschwimmen",
-        "allTimePB": "2:05.40",
-        "saisonPB": "2:07.90",
+        "name": "100m Manakin tow with Fins",
+        "allTimePB": "00:59.57",
+        "saisonPB": "00:59.57",
         "letztesResultat": {
-          "zeit": "2:07.90",
-          "wettkampf": "Schweizermeisterschaft",
-          "datum": "2026-06-14"
+          "zeit": "00:59.57",
+          "wettkampf": "ÖM 2026",
+          "datum": "2026-08-08"
         }
       }
     ]
