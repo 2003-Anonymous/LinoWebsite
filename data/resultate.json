@@ -4,7 +4,7 @@
     "text": "Hier findest du eine Übersicht meiner Leistungen in den Einzeldisziplinen des Rettungsschwimmsports – mit meinen persönlichen Bestzeiten, Saisonbestzeiten und dem jeweils letzten Resultat. Staffelzeiten sind nicht aufgeführt.",
     "disziplinen": [
       {
-        "name": "100m Manakin Carry with Fins",
+        "name": "100m Manikin Carry with Fins",
         "allTimePB": "0:53.56",
         "saisonPB": "0:53.56",
         "letztesResultat": {
@@ -14,7 +14,7 @@
         }
       },
       {
-        "name": "100m Manakin tow with Fins",
+        "name": "100m Manikin tow with Fins",
         "allTimePB": "00:59.57",
         "saisonPB": "00:59.57",
         "letztesResultat": {
@@ -44,7 +44,7 @@
         }
       },
       {
-        "name": "50m Manakin Carry",
+        "name": "50m Manikin Carry",
         "allTimePB": "00:36.13",
         "saisonPB": "00:36.13",
         "letztesResultat": {
@@ -103,12 +103,12 @@
   },
   "erfolge": [
     {
-      "titel": "7ter Endrang Gesamtwertung",
+      "titel": "7ter Rang Gesamtwertung",
       "wettkampf": "Swiss Team Challenge 2026",
       "datum": "2026-05-03"
     },
     {
-      "titel": "🥇 Manakin Tow with Fins",
+      "titel": "🥇 100m Manikin Tow with Fins",
       "wettkampf": "ÖM 2026",
       "datum": "2026-08-07"
     },
@@ -118,12 +118,12 @@
       "datum": "2026-08-08"
     },
     {
-      "titel": "🥈 RWO Team",
+      "titel": "🥈 RWO Staffelpodest",
       "wettkampf": "Regibalwettkampf Olten",
       "datum": "2026-08-15"
     },
     {
-      "titel": "B-Final 200m Obstacle/ Surf Race Final",
+      "titel": "B-Final 200m Obstacle",
       "wettkampf": "French Rescue",
       "datum": "2026-05-15"
     }
