@@ -103,7 +103,7 @@
   },
   "erfolge": [
     {
-      "titel": "Top 10 Finish",
+      "titel": "7ter Endrang Gesamtwertung",
       "wettkampf": "Swiss Team Challenge 2026",
       "datum": "2026-05-03"
     },
@@ -121,6 +121,11 @@
       "titel": "🥈 RWO Team",
       "wettkampf": "Regibalwettkampf Olten",
       "datum": "2026-08-15"
+    },
+    {
+      "titel": "B-Final 200m Obstacle/ Surf Race Final",
+      "wettkampf": "French Rescue",
+      "datum": "2026-05-15"
     }
   ]
 }
